@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">  
+<!-- Struts 2配置文件的根元素 -->
+<struts>
+	<!-- 配置了系列常量 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<package name="MrCBBS" extends="struts-default">		
+		<!--当action不存在时,默认action error起作用起作用 --> 
+		<action name="error">  
+              <result>/error.jsp</result>       
+        </action>
+        
+	    <!-- 登陆 -->
+		<action name="login" class="loginAction">
+		    <result name="success">/index.jsp</result>
+		    <result name="error">/login.jsp</result>
+		</action>
+		
+		<!-- 提交注册信息  -->
+		<action name="regist" class="registAction">
+			<result name="success">/login.jsp</result>
+			<result name="error">/regist.jsp</result>
+		</action>
+		
+		<!-- 发布帖子 -->
+		<action name="publishPostAction" class="PublishPostAction" method="publishPost">
+			<result name="success">/WritePo.jsp</result>
+			<result name="error">/WritePo.jsp</result>
+		</action>
+		
+		<!-- 查找我的帖子 -->
+		<action name="findMyPoAction" class="FindMyPoAction" method="showMyPoList">
+			<result name="success">/Page/MyPo.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>	
+		
+		<!-- 对某社区查找帖子 -->
+		<action name="findPoAction" class="FindPoAction" method="showPoListByPKnob">
+			<result name="success">/Page/PoDemo.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>	
+		
+		<!-- 查看贴子 -->
+		<action name="getPoAction" class="GetPoAction" method="getPo">
+			<result name="success">/Page/ShowPo.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		
+		<action name="publishComment" class="PublishCommentAction" method="publishComment">
+			<result name="success">/Page/AfterSubmitComment.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+
+		<!--点赞-->
+		<action name="likePost" class="likePostAction" method="likePost">
+			<result name="success" >
+				/json.jsp
+			</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<action name="hatePost" class="hatePostAction" method="hatePost">
+			<result name="success" >
+				/json.jsp
+			</result>
+			<result name="error">/login.jsp</result>
+		</action>
+
+		<!-- 查看我的评论-->
+		<action name="getCommentFromMe" class="GetCommentFromMeAction" method="getCommentFromMe" >
+			<result name="success">/Page/ListMyComments.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<action name="getCommentToMe" class="GetCommentToMeAction" method="getCommentToMe" >
+			<result name="success">/Page/ListCommentsToMe.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+
+	</package>
+</struts>

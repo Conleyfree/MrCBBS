@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.MrCBBS.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.MrCBBS.entities.Message">
+    <id column="MID" jdbcType="INTEGER" property="mid" />
+    <result column="SenderID" jdbcType="CHAR" property="senderid" />
+    <result column="SenderType" jdbcType="VARCHAR" property="sendertype" />
+    <result column="Content" jdbcType="VARCHAR" property="content" />
+    <result column="ReceiverID" jdbcType="CHAR" property="receiverid" />
+    <result column="RptObjectID" jdbcType="BIGINT" property="rptobjectid" />
+    <result column="RptObjectType" jdbcType="VARCHAR" property="rptobjecttype" />
+    <result column="IsRead" jdbcType="VARCHAR" property="isread" />
+    <result column="SendDate" jdbcType="TIME" property="senddate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MID, SenderID, SenderType, Content, ReceiverID, RptObjectID, RptObjectType, IsRead, 
+    SendDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where MID = #{mid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where MID = #{mid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.MrCBBS.entities.Message">
+    insert into message (MID, SenderID, SenderType, 
+      Content, ReceiverID, RptObjectID, 
+      RptObjectType, IsRead, SendDate
+      )
+    values (#{mid,jdbcType=INTEGER}, #{senderid,jdbcType=CHAR}, #{sendertype,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{receiverid,jdbcType=CHAR}, #{rptobjectid,jdbcType=BIGINT}, 
+      #{rptobjecttype,jdbcType=VARCHAR}, #{isread,jdbcType=VARCHAR}, #{senddate,jdbcType=TIME}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.MrCBBS.entities.Message">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mid != null">
+        MID,
+      </if>
+      <if test="senderid != null">
+        SenderID,
+      </if>
+      <if test="sendertype != null">
+        SenderType,
+      </if>
+      <if test="content != null">
+        Content,
+      </if>
+      <if test="receiverid != null">
+        ReceiverID,
+      </if>
+      <if test="rptobjectid != null">
+        RptObjectID,
+      </if>
+      <if test="rptobjecttype != null">
+        RptObjectType,
+      </if>
+      <if test="isread != null">
+        IsRead,
+      </if>
+      <if test="senddate != null">
+        SendDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mid != null">
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="senderid != null">
+        #{senderid,jdbcType=CHAR},
+      </if>
+      <if test="sendertype != null">
+        #{sendertype,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverid != null">
+        #{receiverid,jdbcType=CHAR},
+      </if>
+      <if test="rptobjectid != null">
+        #{rptobjectid,jdbcType=BIGINT},
+      </if>
+      <if test="rptobjecttype != null">
+        #{rptobjecttype,jdbcType=VARCHAR},
+      </if>
+      <if test="isread != null">
+        #{isread,jdbcType=VARCHAR},
+      </if>
+      <if test="senddate != null">
+        #{senddate,jdbcType=TIME},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.MrCBBS.entities.Message">
+    update message
+    <set>
+      <if test="senderid != null">
+        SenderID = #{senderid,jdbcType=CHAR},
+      </if>
+      <if test="sendertype != null">
+        SenderType = #{sendertype,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverid != null">
+        ReceiverID = #{receiverid,jdbcType=CHAR},
+      </if>
+      <if test="rptobjectid != null">
+        RptObjectID = #{rptobjectid,jdbcType=BIGINT},
+      </if>
+      <if test="rptobjecttype != null">
+        RptObjectType = #{rptobjecttype,jdbcType=VARCHAR},
+      </if>
+      <if test="isread != null">
+        IsRead = #{isread,jdbcType=VARCHAR},
+      </if>
+      <if test="senddate != null">
+        SendDate = #{senddate,jdbcType=TIME},
+      </if>
+    </set>
+    where MID = #{mid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.MrCBBS.entities.Message">
+    update message
+    set SenderID = #{senderid,jdbcType=CHAR},
+      SenderType = #{sendertype,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      ReceiverID = #{receiverid,jdbcType=CHAR},
+      RptObjectID = #{rptobjectid,jdbcType=BIGINT},
+      RptObjectType = #{rptobjecttype,jdbcType=VARCHAR},
+      IsRead = #{isread,jdbcType=VARCHAR},
+      SendDate = #{senddate,jdbcType=TIME}
+    where MID = #{mid,jdbcType=INTEGER}
+  </update>
+</mapper>

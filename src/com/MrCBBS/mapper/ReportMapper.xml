@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.MrCBBS.mapper.ReportMapper">
+  <resultMap id="BaseResultMap" type="com.MrCBBS.entities.Report">
+    <id column="RID" jdbcType="INTEGER" property="rid" />
+    <result column="DefID" jdbcType="CHAR" property="defid" />
+    <result column="Type" jdbcType="VARCHAR" property="type" />
+    <result column="UID" jdbcType="CHAR" property="uid" />
+    <result column="Reason" jdbcType="CHAR" property="reason" />
+    <result column="Status" jdbcType="VARCHAR" property="status" />
+    <result column="DealTime" jdbcType="TIME" property="dealtime" />
+    <result column="DealManID" jdbcType="CHAR" property="dealmanid" />
+    <result column="DealManType" jdbcType="VARCHAR" property="dealmantype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RID, DefID, Type, UID, Reason, Status, DealTime, DealManID, DealManType
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from report
+    where RID = #{rid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from report
+    where RID = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.MrCBBS.entities.Report">
+    insert into report (RID, DefID, Type, 
+      UID, Reason, Status, DealTime, 
+      DealManID, DealManType)
+    values (#{rid,jdbcType=INTEGER}, #{defid,jdbcType=CHAR}, #{type,jdbcType=VARCHAR}, 
+      #{uid,jdbcType=CHAR}, #{reason,jdbcType=CHAR}, #{status,jdbcType=VARCHAR}, #{dealtime,jdbcType=TIME}, 
+      #{dealmanid,jdbcType=CHAR}, #{dealmantype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.MrCBBS.entities.Report">
+    insert into report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        RID,
+      </if>
+      <if test="defid != null">
+        DefID,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="uid != null">
+        UID,
+      </if>
+      <if test="reason != null">
+        Reason,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="dealtime != null">
+        DealTime,
+      </if>
+      <if test="dealmanid != null">
+        DealManID,
+      </if>
+      <if test="dealmantype != null">
+        DealManType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="defid != null">
+        #{defid,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=CHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="dealtime != null">
+        #{dealtime,jdbcType=TIME},
+      </if>
+      <if test="dealmanid != null">
+        #{dealmanid,jdbcType=CHAR},
+      </if>
+      <if test="dealmantype != null">
+        #{dealmantype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.MrCBBS.entities.Report">
+    update report
+    <set>
+      <if test="defid != null">
+        DefID = #{defid,jdbcType=CHAR},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        UID = #{uid,jdbcType=CHAR},
+      </if>
+      <if test="reason != null">
+        Reason = #{reason,jdbcType=CHAR},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="dealtime != null">
+        DealTime = #{dealtime,jdbcType=TIME},
+      </if>
+      <if test="dealmanid != null">
+        DealManID = #{dealmanid,jdbcType=CHAR},
+      </if>
+      <if test="dealmantype != null">
+        DealManType = #{dealmantype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RID = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.MrCBBS.entities.Report">
+    update report
+    set DefID = #{defid,jdbcType=CHAR},
+      Type = #{type,jdbcType=VARCHAR},
+      UID = #{uid,jdbcType=CHAR},
+      Reason = #{reason,jdbcType=CHAR},
+      Status = #{status,jdbcType=VARCHAR},
+      DealTime = #{dealtime,jdbcType=TIME},
+      DealManID = #{dealmanid,jdbcType=CHAR},
+      DealManType = #{dealmantype,jdbcType=VARCHAR}
+    where RID = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>

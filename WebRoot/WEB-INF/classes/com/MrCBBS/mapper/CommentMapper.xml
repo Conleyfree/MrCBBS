@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.MrCBBS.mapper.CommentMapper">
+
+	<insert id="insertComment" parameterType="com.MrCBBS.entities.Comment" useGeneratedKeys="true" keyProperty="CID">
+		insert into Comment(PID,UName,CContent,CDate,Status)
+		values(#{PID},#{UName},#{CContent},#{CDate},#{Status})
+	</insert>
+
+	<select id="selectByPID" parameterType="string" resultMap="comments">
+		select * from comment
+		where PID=#{PID}
+	</select>
+	<resultMap type="com.MrCBBS.entities.Comment" id="comments">
+		<id property="CID" column="CID"></id>
+		<result property="PID" column="PID"/>
+		<result property="UName" column="UName"/>
+		<result property="CContent" column="CContent"/>
+		<result property="CDate" column="CDate"/>
+		<result property="Status" column="Status"/>		
+	</resultMap>
+	
+
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-4.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+         
+    <!-- 导入其他的spring配置 -->
+    <!-- <import resource="spring-config/applicationContext-dao.xml"/> -->
+       
+    <!-- 数据库连接配置 -->
+    <!-- 配置数据源文件 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>/WEB-INF/database/mysql.properties</value>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>--> 
+	
+	<context:component-scan base-package="com.MrCBBS.mapper"></context:component-scan>
+    <context:property-placeholder location="/WEB-INF/database/mysql.properties"/>
+    <!-- 配置数据源(使用Mybatis自带的连接池不必使用c3p0) -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- <property name="driverClassName" value="org.gjt.mm.mysql.Driver"></property>  -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/mrcbbs?useUnicode=true&amp;characterEncoding=utf8"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="czc61"></property>
+	</bean>   
+     
+    <!-- Mybatis与 Spring4整合 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<!-- 连接数据库的数据源 -->    
+        <property name="dataSource" ref="dataSource" /> 
+    	<!-- 指定Mybatis的配置文件位置,以构建SqlSessionFactoryBuilder -->    
+        <property name="configLocation" value="/WEB-INF/mybatis_config.xml" />  
+    </bean>   
+    
+    <!-- Spring管理MyBatis的Mapper接口 -->
+    <!-- 使用MapperScannerConfigurer扫描得到的bean默认为接口首字母改为小写 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    	<!-- 配置基包，MapperScannerConfigurer自动扫描mapper接口 -->
+    	<property name="basePackage" value="com.MrCBBS.mapper"></property>
+    	<!-- 只有继承下面配置的mapper接口的mapper才能被注册 -->
+    	<property name="markerInterface" value="com.MrCBBS.mapper.MyBatisSuperMapper"></property>
+    	
+    	<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+    
+    <!-- 部署DAO -->
+    <bean id="UserDAO" class="com.MrCBBS.DAO.Impl.UserDAOImpl">
+    	<property name="userMapper" ref="userMapper"></property>
+    	<property name="userPersonalMapper" ref="userPersonalMapper"></property>
+    </bean>
+    <bean id="PostDAO" class="com.MrCBBS.DAO.Impl.PostDAOImpl">
+    	<property name="postMapper" ref="postMapper"></property>
+    </bean>
+    <bean id="CommentDAO" class="com.MrCBBS.DAO.Impl.CommentDAOImpl">
+    	<property name="commentMapper" ref="commentMapper"></property>
+    </bean>
+    <bean id="Appraise4postDAO" class="com.MrCBBS.DAO.Impl.Appraise4postDAOImpl">
+        <property name="appraise4postMapper" ref="appraise4postMapper"></property>
+    </bean>
+
+    <!-- 部署业务逻辑组件 -->
+    <bean id="RegistService" class="com.MrCBBS.Server.Impl.RegistServiceImpl">
+    	<property name="userDAO" ref="UserDAO"></property>   
+    </bean>
+    <bean id="LoginService" class="com.MrCBBS.Server.Impl.LoginServiceImpl">
+    	<property name="userDAO" ref="UserDAO"></property> 
+    </bean>
+    <bean id="PostService" class="com.MrCBBS.Server.Impl.PostServiceImpl">
+    	<property name="postDAO" ref="PostDAO"></property>
+        <property name="appraise4postDAO" ref="Appraise4postDAO"></property>
+        <property name="userDAO" ref="UserDAO"></property>
+    </bean>
+    <bean id="CommentService" class="com.MrCBBS.Server.Impl.CommentServiceImpl">
+    	<property name="commentDAO" ref="CommentDAO"></property> 
+    </bean>
+    <bean id="UserService" class="com.MrCBBS.Server.Impl.UserServiceImpl">
+        <property name="userDAO" ref="UserDAO"></property>
+    </bean>
+    
+    <!-- 让Spring管理的action实例 -->
+    <bean id="loginAction" class="com.MrCBBS.action.LoginAction" scope="prototype">
+    	<property name="loginService" ref="LoginService"></property>
+    </bean>
+    <bean id="registAction" class="com.MrCBBS.action.RegistAction" scope="prototype">
+    	<!-- 依赖注入业务逻辑组件 -->
+    	<property name="registService" ref="RegistService"></property>
+    </bean>
+    <bean id="PublishPostAction" class="com.MrCBBS.action.PublishAction" scope="prototype">
+    	<property name="postService" ref="PostService"></property> 
+    </bean>  
+    <bean id="FindMyPoAction" class="com.MrCBBS.action.PublishAction" scope="prototype">
+    	<property name="postService" ref="PostService"></property> 
+    </bean>
+    <bean id="FindPoAction" class="com.MrCBBS.action.PublishAction" scope="prototype">
+    	<property name="postService" ref="PostService"></property> 
+    </bean>
+    <bean id="GetPoAction" class="com.MrCBBS.action.PublishAction" scope="prototype">
+    	<property name="postService" ref="PostService"></property>
+    	<property name="commentService" ref="CommentService"></property>
+        <property name="userService" ref="UserService"></property>
+    </bean>
+    <bean id="likePostAction" class="com.MrCBBS.action.PublishAction" scope="prototype">
+        <property name="postService" ref="PostService"></property>
+    </bean>
+    <bean id="hatePostAction" class="com.MrCBBS.action.PublishAction" scope="prototype">
+        <property name="postService" ref="PostService"></property>
+    </bean>
+    <bean id="PublishCommentAction" class="com.MrCBBS.action.CommentAction" scope="prototype">
+        <property name="postService" ref="PostService"></property>
+    	<property name="commentService" ref="CommentService"></property>
+    </bean>
+    <bean id="GetCommentFromMeAction" class="com.MrCBBS.action.CommentAction" scope="prototype">
+        <property name="postService" ref="PostService"></property>
+        <property name="commentService" ref="CommentService"></property>
+    </bean>
+    <bean id="GetCommentToMeAction" class="com.MrCBBS.action.CommentAction" scope="prototype">
+        <property name="postService" ref="PostService"></property>
+        <property name="commentService" ref="CommentService"></property>
+    </bean>
+</beans>

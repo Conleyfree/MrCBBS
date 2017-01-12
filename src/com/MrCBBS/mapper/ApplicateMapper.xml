@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.MrCBBS.mapper.ApplicateMapper">
+  <resultMap id="BaseResultMap" type="com.MrCBBS.entities.Applicate">
+    <id column="ApID" jdbcType="INTEGER" property="apid" />
+    <result column="UID" jdbcType="CHAR" property="uid" />
+    <result column="Reason" jdbcType="VARCHAR" property="reason" />
+    <result column="ApTime" jdbcType="TIME" property="aptime" />
+    <result column="Status" jdbcType="VARCHAR" property="status" />
+    <result column="AID1" jdbcType="BIGINT" property="aid1" />
+    <result column="Value1" jdbcType="VARCHAR" property="value1" />
+    <result column="AID2" jdbcType="BIGINT" property="aid2" />
+    <result column="Value2" jdbcType="VARCHAR" property="value2" />
+    <result column="AID3" jdbcType="BIGINT" property="aid3" />
+    <result column="Value3" jdbcType="VARCHAR" property="value3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ApID, UID, Reason, ApTime, Status, AID1, Value1, AID2, Value2, AID3, Value3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from applicate
+    where ApID = #{apid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from applicate
+    where ApID = #{apid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.MrCBBS.entities.Applicate">
+    insert into applicate (ApID, UID, Reason, 
+      ApTime, Status, AID1, Value1, 
+      AID2, Value2, AID3, Value3
+      )
+    values (#{apid,jdbcType=INTEGER}, #{uid,jdbcType=CHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{aptime,jdbcType=TIME}, #{status,jdbcType=VARCHAR}, #{aid1,jdbcType=BIGINT}, #{value1,jdbcType=VARCHAR}, 
+      #{aid2,jdbcType=BIGINT}, #{value2,jdbcType=VARCHAR}, #{aid3,jdbcType=BIGINT}, #{value3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.MrCBBS.entities.Applicate">
+    insert into applicate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="apid != null">
+        ApID,
+      </if>
+      <if test="uid != null">
+        UID,
+      </if>
+      <if test="reason != null">
+        Reason,
+      </if>
+      <if test="aptime != null">
+        ApTime,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="aid1 != null">
+        AID1,
+      </if>
+      <if test="value1 != null">
+        Value1,
+      </if>
+      <if test="aid2 != null">
+        AID2,
+      </if>
+      <if test="value2 != null">
+        Value2,
+      </if>
+      <if test="aid3 != null">
+        AID3,
+      </if>
+      <if test="value3 != null">
+        Value3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="apid != null">
+        #{apid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=CHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="aptime != null">
+        #{aptime,jdbcType=TIME},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="aid1 != null">
+        #{aid1,jdbcType=BIGINT},
+      </if>
+      <if test="value1 != null">
+        #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="aid2 != null">
+        #{aid2,jdbcType=BIGINT},
+      </if>
+      <if test="value2 != null">
+        #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="aid3 != null">
+        #{aid3,jdbcType=BIGINT},
+      </if>
+      <if test="value3 != null">
+        #{value3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.MrCBBS.entities.Applicate">
+    update applicate
+    <set>
+      <if test="uid != null">
+        UID = #{uid,jdbcType=CHAR},
+      </if>
+      <if test="reason != null">
+        Reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="aptime != null">
+        ApTime = #{aptime,jdbcType=TIME},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="aid1 != null">
+        AID1 = #{aid1,jdbcType=BIGINT},
+      </if>
+      <if test="value1 != null">
+        Value1 = #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="aid2 != null">
+        AID2 = #{aid2,jdbcType=BIGINT},
+      </if>
+      <if test="value2 != null">
+        Value2 = #{value2,jdbcType=VARCHAR},
+      </if>
+      <if test="aid3 != null">
+        AID3 = #{aid3,jdbcType=BIGINT},
+      </if>
+      <if test="value3 != null">
+        Value3 = #{value3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ApID = #{apid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.MrCBBS.entities.Applicate">
+    update applicate
+    set UID = #{uid,jdbcType=CHAR},
+      Reason = #{reason,jdbcType=VARCHAR},
+      ApTime = #{aptime,jdbcType=TIME},
+      Status = #{status,jdbcType=VARCHAR},
+      AID1 = #{aid1,jdbcType=BIGINT},
+      Value1 = #{value1,jdbcType=VARCHAR},
+      AID2 = #{aid2,jdbcType=BIGINT},
+      Value2 = #{value2,jdbcType=VARCHAR},
+      AID3 = #{aid3,jdbcType=BIGINT},
+      Value3 = #{value3,jdbcType=VARCHAR}
+    where ApID = #{apid,jdbcType=INTEGER}
+  </update>
+</mapper>

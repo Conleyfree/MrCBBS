@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.MrCBBS.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.MrCBBS.entities.Admin">
+    <id column="AID" jdbcType="BIGINT" property="aid" />
+    <id column="AName" jdbcType="VARCHAR" property="aname" />
+    <result column="APassWD" jdbcType="VARCHAR" property="apasswd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    AID, AName, APassWD
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.MrCBBS.entities.AdminKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where AID = #{aid,jdbcType=BIGINT}
+      and AName = #{aname,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.MrCBBS.entities.AdminKey">
+    delete from admin
+    where AID = #{aid,jdbcType=BIGINT}
+      and AName = #{aname,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.MrCBBS.entities.Admin">
+    insert into admin (AID, AName, APassWD
+      )
+    values (#{aid,jdbcType=BIGINT}, #{aname,jdbcType=VARCHAR}, #{apasswd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.MrCBBS.entities.Admin">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        AID,
+      </if>
+      <if test="aname != null">
+        AName,
+      </if>
+      <if test="apasswd != null">
+        APassWD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=BIGINT},
+      </if>
+      <if test="aname != null">
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="apasswd != null">
+        #{apasswd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.MrCBBS.entities.Admin">
+    update admin
+    <set>
+      <if test="apasswd != null">
+        APassWD = #{apasswd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AID = #{aid,jdbcType=BIGINT}
+      and AName = #{aname,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.MrCBBS.entities.Admin">
+    update admin
+    set APassWD = #{apasswd,jdbcType=VARCHAR}
+    where AID = #{aid,jdbcType=BIGINT}
+      and AName = #{aname,jdbcType=VARCHAR}
+  </update>
+</mapper>

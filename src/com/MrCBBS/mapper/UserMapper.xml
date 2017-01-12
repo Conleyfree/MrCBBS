@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.MrCBBS.mapper.UserMapper">
+  
+  <!-- 一个参数为空返回类型为User的构造函数已经被用了 -->
+  <select id="selectOneByUID" parameterType="string" resultType="com.MrCBBS.entities.User">
+    select 
+        UID as "uid",
+        UAccount as "uAccount",
+        UPassWD as "uPassWD",
+        UTag as "uTag",
+        UNickName as "uNickName",
+        Email as "uEmail"
+    from user where UID = #{UID}
+  </select>
+
+  <!-- 需要一个参数为空返回类型为Integer的构造函数 -->
+  <select id="selectOneByUNickName" parameterType="string" resultType="Integer">
+    select count(UNickName)
+    from user where UNickName = #{uNickName}
+  </select>
+    <!-- 需要一个参数为空返回类型为Integer的构造函数 -->
+    <select id="selectOneByUAccount" parameterType="string" resultType="com.MrCBBS.entities.User">
+        select *
+        from user where UAccount = #{uAccount}
+    </select>
+  <select id="selectUIDByUNickName" parameterType="string" resultType="string">
+    select UID	as "uid"
+    from user where UNickName = #{uNickName}
+  </select>
+  
+  <!-- 
+  <select id="isExistUID" parameterType="string" resultType="int">
+  	select count(*) from user where UID = #{UID}
+  </select>
+   -->
+   
+  <insert id="insertUser" parameterType="com.MrCBBS.entities.User" useGeneratedKeys="true" keyProperty="UAccount">
+  	insert into User(UID,UPassWD,UTag,UNickName,Email)
+  	values(#{uid},#{uPassWD},#{uTag},#{uNickName},#{uEmail})
+  </insert>
+  
+</mapper>

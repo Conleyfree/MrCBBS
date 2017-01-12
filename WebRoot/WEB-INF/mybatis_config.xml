@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">   
+<configuration>  
+	<!-- 
+    <typeAliases>  
+        <typeAlias alias="userinfo" type="com.test.entity.UserInfo"/>  
+    </typeAliases>  
+    <mappers>  
+        <mapper resource="com/test/sqlMapper/loginMapper.xml"/>  
+    </mappers>  
+     -->
+    <!--<settings>-->
+        <!--&lt;!&ndash; 打印查询语句 &ndash;&gt;-->
+        <!--<setting name="logImpl" value="STDOUT_LOGGING" />-->
+    <!--</settings>-->
+    <mappers>  
+        <mapper resource="com/MrCBBS/mapper/UserMapper.xml"/>  
+        <mapper resource="com/MrCBBS/mapper/UserPersonalMapper.xml"/>
+        <mapper resource="com/MrCBBS/mapper/AdminMapper.xml"/>
+        <mapper resource="com/MrCBBS/mapper/ApplicateMapper.xml"/>
+        <mapper resource="com/MrCBBS/mapper/Appraise4comMapper.xml"/>
+        <mapper resource="com/MrCBBS/mapper/Appraise4postMapper.xml"/>
+        <mapper resource="com/MrCBBS/mapper/CommentMapper.xml"/>
+        <mapper resource="com/MrCBBS/mapper/MessageMapper.xml"/>
+        <mapper resource="com/MrCBBS/mapper/PostMapper.xml"/>
+        <mapper resource="com/MrCBBS/mapper/ReportMapper.xml"/>
+
+    </mappers>
+     
+</configuration>  

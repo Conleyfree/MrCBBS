@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.MrCBBS.mapper.Appraise4postMapper">
+    <resultMap id="BaseResultMap" type="com.MrCBBS.entities.Appraise4post">
+        <result column="PID" jdbcType="BIGINT" property="pid"/>
+        <result column="Value" jdbcType="SMALLINT" property="value"/>
+        <result column="UID" jdbcType="CHAR" property="uid"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.MrCBBS.entities.Appraise4post">
+    insert into appraise4post (PID, Value, UID)
+    values (#{pid,jdbcType=BIGINT}, #{value,jdbcType=SMALLINT}, #{uid,jdbcType=CHAR})
+  </insert>
+    <select id="selectByPostIdAndUserId" parameterType="com.MrCBBS.entities.Appraise4post" resultType="com.MrCBBS.entities.Appraise4post">
+    select *  from appraise4post where PID=#{pid} and UID=#{uid}
+  </select>
+    <update id="updateByPostIdAndUserId" parameterType="com.MrCBBS.entities.Appraise4post">
+    update  appraise4post set Value=#{value} where PID=#{pid} and UID=#{uid}
+    </update>
+    <insert id="insertSelective" parameterType="com.MrCBBS.entities.Appraise4post">
+        insert into appraise4post
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                PID,
+            </if>
+            <if test="value != null">
+                Value,
+            </if>
+            <if test="uid != null">
+                UID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pid != null">
+                #{pid,jdbcType=BIGINT},
+            </if>
+            <if test="value != null">
+                #{value,jdbcType=SMALLINT},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countPostValue" parameterType="com.MrCBBS.entities.Appraise4post"  resultType="Integer">
+        select count(*)  from appraise4post WHERE
+          PID=#{pid} and Value=#{value}
+    </select>
+    <select id="countUserValue" parameterType="com.MrCBBS.entities.Appraise4post" resultType="Integer">
+        select count(*)  from appraise4post WHERE
+          UID=#{uid} and Value=#{value}
+    </select>
+</mapper>
