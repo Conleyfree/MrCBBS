@@ -126,7 +126,7 @@
 	        </tbody>
         </table>
         <!-- 评论编辑区 -->
-        <textarea id="htmlbox_icon_set_green" class="text_area2" cols="100" rows="50" name="content"></textarea><br>
+        <textarea id="htmlbox_icon_set_green" class="text_area2" cols="200" rows="25" name="content"></textarea><br>
         <input class="btn" id="goodbutton" type="button" value="提交评论" onclick="submitComment();"/>
         <form action="publishComment.action" method="post" class="form">
         	<input type="hidden" id="comment" name="comment"/>

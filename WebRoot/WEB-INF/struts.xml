@@ -6,7 +6,7 @@
 <struts>
 	<!-- 配置了系列常量 -->
 	<constant name="struts.i18n.encoding" value="UTF-8" />
-	<package name="MrCBBS" extends="struts-default">		
+	<package name="MrCBBS" extends="json-default">
 		<!--当action不存在时,默认action error起作用起作用 --> 
 		<action name="error">  
               <result>/error.jsp</result>       
@@ -75,6 +75,13 @@
 		<action name="getCommentToMe" class="GetCommentToMeAction" method="getCommentToMe" >
 			<result name="success">/Page/ListCommentsToMe.jsp</result>
 			<result name="error">/login.jsp</result>
+		</action>
+
+		<!-- 修改密码 -->
+		<action name="modifyPasswordAction" class="ModifyPasswordAction" >
+			<result name="success" type="json">
+				<param name="includeProperties">message, statusCode</param>
+			</result>
 		</action>
 
 	</package>

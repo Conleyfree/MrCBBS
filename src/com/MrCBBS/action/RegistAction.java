@@ -1,62 +1,22 @@
 package com.MrCBBS.action;
 
-import java.net.Inet6Address;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.text.SimpleDateFormat;
-import java.util.Map;
 import java.util.Random;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-//import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.interceptor.SessionAware;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-
 import com.MrCBBS.Server.RegistService;
 import com.MrCBBS.entities.User;
-import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
 public class RegistAction extends CommonAction{
-	private String passWD;		//密码
-	private String rePassWD;	//确认密码
-	private String nickName;	//昵称
-	private String email;		//邮箱
+	String passWD;		//密码
+	String rePassWD;	//确认密码
+	String nickName;	//昵称
+	String email;		//邮箱
 	
 	private RegistService registService;
-	
-	public RegistService getRegistService()
-	{
-		return registService;
-	}
 
 	public void setRegistService(RegistService registService)
 	{
 		this.registService = registService;
-	}
-
-	public void setPassWD(String passWD)
-	{
-		this.passWD = passWD;
-	}
-
-	public void setRePassWD(String rePassWD)
-	{
-		this.rePassWD = rePassWD;
-	}
-
-	public void setNickName(String nickName)
-	{
-		this.nickName = nickName;
-	}
-
-	public void setEmail(String email)
-	{
-		this.email = email;
 	}
     
 	public String execute() throws Exception{

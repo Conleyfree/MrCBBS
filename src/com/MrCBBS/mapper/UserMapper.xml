@@ -21,11 +21,13 @@
     select count(UNickName)
     from user where UNickName = #{uNickName}
   </select>
-    <!-- 需要一个参数为空返回类型为Integer的构造函数 -->
-    <select id="selectOneByUAccount" parameterType="string" resultType="com.MrCBBS.entities.User">
-        select *
-        from user where UAccount = #{uAccount}
-    </select>
+
+  <!-- 需要一个参数为空返回类型为Integer的构造函数 -->
+  <select id="selectOneByUAccount" parameterType="string" resultType="com.MrCBBS.entities.User">
+    select *
+    from user where UAccount = #{uAccount}
+  </select>
+
   <select id="selectUIDByUNickName" parameterType="string" resultType="string">
     select UID	as "uid"
     from user where UNickName = #{uNickName}
@@ -41,5 +43,11 @@
   	insert into User(UID,UPassWD,UTag,UNickName,Email)
   	values(#{uid},#{uPassWD},#{uTag},#{uNickName},#{uEmail})
   </insert>
+
+  <update id="updateUserPassWD" parameterType="com.MrCBBS.entities.User">
+      UPDATE USER SET
+      UPassWD = #{uPassWD}
+      WHERE UID = #{uid}
+  </update>
   
 </mapper>

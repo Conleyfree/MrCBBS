@@ -17,12 +17,46 @@
     <script type="text/javascript" src="Scripts/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="Scripts/jquery-ui-1.8.22.custom.min.js"></script>
     <script type="text/javascript" src="Scripts/index.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+
+    <!-- js -->
+    <script type="text/javascript">
+        /*  2017.1.20   17：26
+            修改密码
+         */
+        function modifyPassWD() {
+            var oldPassword = $("#oldPassWD").val();
+            var newPassword = $("#newPassWD").val();
+            var rePassword = $("#rePassWD").val();
+            var message = "";
+            var statusCode = "";
+            $.ajax({
+                url:'modifyPasswordAction',
+                type:'post',
+                async:false,//使代码按顺序执行
+                data:{oldPassword:oldPassword,newPassword:newPassword,rePassword:rePassword},
+                dataType:'json',
+                success:function(data){
+                    message = data.message;
+                    statusCode = data.statusCode;
+                    alert(message);
+                    document.getElementById("errorMessage").innerHTML = message;
+                }
+            });
+            if(statusCode == "200")     return true;
+            if(statusCode == "300")     return false;
+
+            return false;
+        };
+    </script>
+
   </head>
   
   <body>
   
     <div class="warp">
-    	<% User user = (User)request.getAttribute("User"); 
+    	<% User user = (User)request.getAttribute("User");
+           session.setAttribute("User", user);
     	   if(user == null){
  		   		RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
  	   	   		requestDispatcher.forward(request,response);
@@ -125,11 +159,31 @@
                 <div>
                     <a class="one">辅助功能</a>
                     <ul class="kid">
-                        <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">修改密码</a></li>
+                        <li><b class="tip"></b><a data-toggle="modal" href="#modifyPassWD">修改密码</a></li>
 	                    <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">申请成为版主</a></li>
                     	<li><b class="tip"></b><a target="Conframe" href="login.jsp">安全退出</a></li>
                     </ul>
                 </div>
+
+                <!-- 模态框 start 2017.1.20 -->
+                <div id="modifyPassWD" class="modal hide fade in" style="display:none">
+                    <div class="modal-header" >
+                        <a class="close" data-dismiss="modal">×</a>
+                        <h3>修改用户密码</h3>
+                    </div>
+                    <div class="modal-body" >
+                         <h4 style="text-align:center;color:red" id="errorMessage"></h4><br/>
+                         <h4 style="text-align:center" >原密码：<input id="oldPassWD" type="password" style="width:40%;height:15%" ></h4><br/>
+                         <h4 style="text-align:center">新密码：<input id="newPassWD" type="password" style="width:40%;height:15%" ></h4><br/>
+                         <h4 style="text-align:center">确认输入：<input id="rePassWD" type="password" style="width:40%;height:15%" ></h4><br/>
+                    </div>
+                    <div class="modal-footer" >
+                        <a href="#" class="btn btn-success" onclick="modifyPassWD()">修改</a>
+                        <a href="#" class="btn" type="reset">重置</a>
+                    </div>
+                </div>
+                <!-- 模态框 end 2017.1.20 -->
+
                 <div id="datepicker"></div>
             </div>
         </div>

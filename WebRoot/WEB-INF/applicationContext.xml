@@ -127,4 +127,7 @@
         <property name="postService" ref="PostService"></property>
         <property name="commentService" ref="CommentService"></property>
     </bean>
+    <bean id="ModifyPasswordAction" class="com.MrCBBS.action.ModifyPasswordAction" scope="prototype" >
+        <property name="userService" ref="UserService"></property>
+    </bean>
 </beans>

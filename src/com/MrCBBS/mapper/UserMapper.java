@@ -16,4 +16,7 @@ public interface UserMapper	extends MyBatisSuperMapper
 	
 	//插入一条User记录
 	void insertUser(User user);
+
+	//更新一条User记录的密码
+	void updateUserPassWD(User user);
 }

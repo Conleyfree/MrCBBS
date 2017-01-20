@@ -10,26 +10,16 @@ public class UserDAOImpl implements UserDAO
 {
 	private UserMapper userMapper;
 	private UserPersonalMapper userPersonalMapper;
-		
-	public UserMapper getUserMapper()
-	{
-		return userMapper;
-	}
 
 	public void setUserMapper(UserMapper userMapper)
 	{
 		this.userMapper = userMapper;
 	}
 
-	public UserPersonalMapper getUserPersonalMapper()
-	{
-		return userPersonalMapper;
-	}
-
-	public void setUserPersonalMapper(UserPersonalMapper userPersonalMapper)
-	{
+	public void setUserPersonalMapper(UserPersonalMapper userPersonalMapper){
 		this.userPersonalMapper = userPersonalMapper;
 	}
+
 	public User selectOneByUAccount(String uAccount){
 
 			return userMapper.selectOneByUAccount(uAccount);
@@ -64,7 +54,13 @@ public class UserDAOImpl implements UserDAO
 		}
 		return null;
 	}
-	
+
+	@Override
+	public User selectOneByUID(String UID) {
+		if(UID==null || UID.equals(""))		return null;
+		return userMapper.selectOneByUID(UID);
+	}
+
 	public UserPersonal selectUPByUID(String UID){
 		return userPersonalMapper.selectUPByUID(UID);
 	}
@@ -92,6 +88,11 @@ public class UserDAOImpl implements UserDAO
 	//更新用户主要信息（昵称、密码）
 	public void updateUserPersonal(UserPersonal userPersonal){
 		userPersonalMapper.update(userPersonal);
+	}
+
+	@Override
+	public void updateUserPassWD(User user) {
+		userMapper.updateUserPassWD(user);
 	}
 
 }

@@ -7,4 +7,7 @@ import com.MrCBBS.entities.User;
  */
 public interface UserService {
     User selectOneByUAccount(String uAccount);
+
+    /* 修改密码 */
+    String modifyUserPassWD(User user, String oldPassword, String newPassword);
 }
