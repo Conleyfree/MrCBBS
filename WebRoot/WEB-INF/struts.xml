@@ -17,6 +17,10 @@
 		    <result name="success">/index.jsp</result>
 		    <result name="error">/login.jsp</result>
 		</action>
+		<!-- 安全登出 -->
+		<action name="logout" class="logoutAction">
+			<result name="success" type="redirect">login.jsp</result>
+		</action>
 		
 		<!-- 提交注册信息  -->
 		<action name="regist" class="registAction">
@@ -77,6 +81,7 @@
 			<result name="error">/login.jsp</result>
 		</action>
 
+		<!-- ajax -->
 		<!-- 修改密码 -->
 		<action name="modifyPasswordAction" class="ModifyPasswordAction" >
 			<result name="success" type="json">

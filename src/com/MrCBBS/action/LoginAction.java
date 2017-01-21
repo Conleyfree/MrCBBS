@@ -58,7 +58,4 @@ public class LoginAction extends CommonAction{
 		request.setAttribute("User", user);
 		return SUCCESS;
 	}
-	
-	
-	
 }

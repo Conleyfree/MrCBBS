@@ -47,7 +47,17 @@
             if(statusCode == "300")     return false;
 
             return false;
-        };
+        }
+
+        /*  2017.1.21
+            修改密码模态框重置按钮
+         */
+        function reSet() {
+            document.getElementById("oldPassWD").value = "";
+            document.getElementById("newPassWD").value = "";
+            document.getElementById("rePassWD").value = "";
+            document.getElementById("errorMessage").innerHTML = "";
+        }
     </script>
 
   </head>
@@ -57,18 +67,19 @@
     <div class="warp">
     	<% User user = (User)request.getAttribute("User");
            session.setAttribute("User", user);
+            UserPersonal up;
     	   if(user == null){
- 		   		RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
- 	   	   		requestDispatcher.forward(request,response);
-    	   }
-    	   UserPersonal up = user.getUserPersonal();
-    	
+               RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+               requestDispatcher.forward(request,response);
+               //response.sendRedirect("login.jsp");
+    	   }else{
+              up = user.getUserPersonal();
     	%>
     	<!--头部开始-->
         <div class="top_c">
             <div class="top-menu">
                 <ul class="top-menu-nav">
-                    <li><a href="index.jsp">首页</a></li>
+                    <li><a href="#">首页</a></li>
                     <li><a href="#">我的帖子<i class="tip-up"></i></a>
                      	<ul class="kidc">
                             <li><b class="tip"></b><a target="Conframe" href="findMyPoAction.action">查看帖子</a></li>
@@ -104,9 +115,9 @@
                     </li>
                     <li><a href="#">辅助功能<i class="tip-up"></i></a>
                         <ul class="kidc">
-	                        <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">修改密码</a></li>
+	                        <li><b class="tip"></b><a data-toggle="modal" href="#modifyPassWD">修改密码</a></li>
 	                        <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">申请成为版主</a></li>
-	                        <li><b class="tip"></b><a target="Conframe" href="login.jsp">安全退出</a></li>
+	                        <li><b class="tip"></b><a target="Conframe" href="logout.action">安全退出</a></li>
                     	</ul>
                     </li>
                 </ul>
@@ -161,7 +172,7 @@
                     <ul class="kid">
                         <li><b class="tip"></b><a data-toggle="modal" href="#modifyPassWD">修改密码</a></li>
 	                    <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">申请成为版主</a></li>
-                    	<li><b class="tip"></b><a target="Conframe" href="login.jsp">安全退出</a></li>
+                    	<li><b class="tip"></b><a target="_parent" href="logout.action">安全退出</a></li>
                     </ul>
                 </div>
 
@@ -179,7 +190,7 @@
                     </div>
                     <div class="modal-footer" >
                         <a href="#" class="btn btn-success" onclick="modifyPassWD()">修改</a>
-                        <a href="#" class="btn" type="reset">重置</a>
+                        <a href="#" class="btn bt" onclick="reSet()">重置</a>
                     </div>
                 </div>
                 <!-- 模态框 end 2017.1.20 -->
@@ -192,7 +203,6 @@
         <!--右边框架开始-->
         <div class="right_c">
             <div class="nav-tip" onclick="javascript:void(0)">&nbsp;</div>
-
         </div>
         <div class="Conframe">
             <iframe name="Conframe" id="Conframe"></iframe>
@@ -202,7 +212,9 @@
         <!--底部开始-->
         <div class="bottom_c">Copyright &copy;3113006216 陈泽川   13级软件工程1班</div>
         <!--底部结束-->
-        
+
+       <% } %>
+
     </div>
     
   </body>
