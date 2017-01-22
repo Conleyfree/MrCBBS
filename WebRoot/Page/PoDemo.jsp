@@ -32,7 +32,25 @@
   		User user = (User)request.getSession().getAttribute("User");
   		if(user == null)	response.sendRedirect("../login.jsp");
   	%>
-    <div class="alert alert-info">当前位置<b class="tip">逛逛社区</b>我的帖子</div>
+    <div class="alert alert-info">当前位置
+        <b class="tip"></b>逛逛社区
+        <b class="tip"></b><%
+            int pknob = (Integer) request.getAttribute("Pknob");
+            switch(pknob){
+                case 1:%>移动开发版块<%;break;
+                case 2:%>.NET技术版块<%;break;
+                case 3:%>数据库开发版块<%;break;
+                case 4:%>云计算版块<%;break;
+                case 5:%>Web开发版块<%;break;
+                case 6:%>硬件/嵌入式开发版块<%;break;
+                case 7:%>Java技术版块<%;break;
+                case 8:%>开发语言/框架<%;break;
+                case 9:%>Linux/Unix社区<%;break;
+                case 10:%>其他<%;break;
+                default:%>生活日常讨论版块<%;break;
+            }
+        %>
+    </div>
   	<table class="tbform list">
         <thead>
             <tr class="tr">

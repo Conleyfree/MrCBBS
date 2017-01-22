@@ -109,6 +109,7 @@ public class PublishAction extends CommonAction
 		
 		List<Post> posts = postService.selectPostByPKnob(PKnob);
 		request.setAttribute("Posts", posts);
+		request.setAttribute("Pknob", PKnob);
 		return SUCCESS;
 	}//end of showPoListByPKnob
 

@@ -117,7 +117,7 @@
                         <ul class="kidc">
 	                        <li><b class="tip"></b><a data-toggle="modal" href="#modifyPassWD">修改密码</a></li>
 	                        <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">申请成为版主</a></li>
-	                        <li><b class="tip"></b><a target="Conframe" href="logout.action">安全退出</a></li>
+	                        <li><b class="tip"></b><a target="_parent" href="logout.action">安全退出</a></li>
                     	</ul>
                     </li>
                 </ul>
