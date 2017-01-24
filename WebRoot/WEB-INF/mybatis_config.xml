@@ -21,9 +21,9 @@
         <mapper resource="com/MrCBBS/mapper/Appraise4comMapper.xml"/>
         <mapper resource="com/MrCBBS/mapper/Appraise4postMapper.xml"/>
         <mapper resource="com/MrCBBS/mapper/CommentMapper.xml"/>
-        <mapper resource="com/MrCBBS/mapper/MessageMapper.xml"/>
+        <!--<mapper resource="com/MrCBBS/mapper/MessageMapper.xml"/>-->
         <mapper resource="com/MrCBBS/mapper/PostMapper.xml"/>
-        <mapper resource="com/MrCBBS/mapper/ReportMapper.xml"/>
+        <!--<mapper resource="com/MrCBBS/mapper/ReportMapper.xml"/>-->
 
     </mappers>
      

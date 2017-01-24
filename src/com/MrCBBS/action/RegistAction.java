@@ -11,7 +11,24 @@ public class RegistAction extends CommonAction{
 	String rePassWD;	//确认密码
 	String nickName;	//昵称
 	String email;		//邮箱
-	
+
+	/* setter方法获取request参数 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassWD(String passWD) {
+		this.passWD = passWD;
+	}
+
+	public void setRePassWD(String rePassWD) {
+		this.rePassWD = rePassWD;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	private RegistService registService;
 
 	public void setRegistService(RegistService registService)

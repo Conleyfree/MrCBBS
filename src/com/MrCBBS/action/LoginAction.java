@@ -10,6 +10,8 @@ public class LoginAction extends CommonAction{
 
 	private String username;
 	private String password;
+	private String rank;
+
 	private LoginService loginService;
 	
 	public LoginService getLoginService()
@@ -47,15 +49,23 @@ public class LoginAction extends CommonAction{
 		// TODO Auto-generated method stub
 		username = request.getParameter("username");
 		password = request.getParameter("password");
-		User user = loginService.login(username, password);
-		if(user == null){
-			String EM = "输入的用户名或密码有误";
-			request.setAttribute("SM", EM);			
-			return ERROR;
+		rank = request.getParameter("rank");
+
+		if(Integer.parseInt(rank) == 1){	//管理员用户登录
+
+			return "1";
+		}else{
+			User user = loginService.login(username, password);
+			if(user == null){
+				String EM = "输入的用户名或密码有误";
+				request.setAttribute("SM", EM);
+				return ERROR;
+			}
+			HttpSession httpSession = request.getSession();
+			httpSession.setAttribute("User", user);
+			request.setAttribute("User", user);
+			return "2";
 		}
-		HttpSession httpSession = request.getSession();
-		httpSession.setAttribute("User", user);
-		request.setAttribute("User", user);
-		return SUCCESS;
+
 	}
 }

@@ -23,7 +23,7 @@
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
 	</bean>--> 
 	
-	<context:component-scan base-package="com.MrCBBS.mapper"></context:component-scan>
+	<context:component-scan base-package="com.MrCBBS.mapper" />
     <context:property-placeholder location="/WEB-INF/database/mysql.properties"/>
     <!-- 配置数据源(使用Mybatis自带的连接池不必使用c3p0) -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -52,7 +52,7 @@
     	
     	<property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
-    
+
     <!-- 部署DAO -->
     <bean id="UserDAO" class="com.MrCBBS.DAO.Impl.UserDAOImpl">
     	<property name="userMapper" ref="userMapper"></property>
@@ -93,7 +93,6 @@
     </bean>
     <bean id="logoutAction" class="com.MrCBBS.action.LogoutAction" scope="prototype" />
     <bean id="registAction" class="com.MrCBBS.action.RegistAction" scope="prototype">
-    	<!-- 依赖注入业务逻辑组件 -->
     	<property name="registService" ref="RegistService"></property>
     </bean>
     <bean id="PublishPostAction" class="com.MrCBBS.action.PublishAction" scope="prototype">

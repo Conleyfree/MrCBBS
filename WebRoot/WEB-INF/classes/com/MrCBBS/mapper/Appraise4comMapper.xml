@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.MrCBBS.mapper.Appraise4comMapper">
+  <resultMap id="BaseResultMap" type="com.MrCBBS.entities.Appraise4com">
+    <result column="CID" jdbcType="BIGINT" property="cid" />
+    <result column="Value" jdbcType="SMALLINT" property="value" />
+    <result column="UID" jdbcType="CHAR" property="uid" />
+  </resultMap>
+  <insert id="insert" parameterType="com.MrCBBS.entities.Appraise4com">
+    insert into appraise4com (CID, Value, UID)
+    values (#{cid,jdbcType=BIGINT}, #{value,jdbcType=SMALLINT}, #{uid,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.MrCBBS.entities.Appraise4com">
+    insert into appraise4com
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        CID,
+      </if>
+      <if test="value != null">
+        Value,
+      </if>
+      <if test="uid != null">
+        UID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        #{cid,jdbcType=BIGINT},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=SMALLINT},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
