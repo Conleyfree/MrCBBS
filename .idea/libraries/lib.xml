@@ -31,7 +31,6 @@
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/commons-lang3-3.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/slf4j-api-1.6.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/spring-tx-4.0.1.RELEASE.jar!/" />
-      <root url="jar://D:/apache-tomcat-9.0.0.M1/lib/servlet-api.jar!/" />
       <root url="jar://G:/框架包们/sqljdbc4.jar!/" />
     </CLASSES>
     <JAVADOC />

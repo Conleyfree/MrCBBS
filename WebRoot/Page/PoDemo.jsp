@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.MrCBBS.entities.Post,com.MrCBBS.entities.User" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.MrCBBS.entities.Post,com.MrCBBS.entities.User,com.MrCBBS.entities.Admin" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -30,7 +30,8 @@
   <body>
   	<%	List<Post> posts = (List<Post>)request.getAttribute("Posts");
   		User user = (User)request.getSession().getAttribute("User");
-  		if(user == null)	response.sendRedirect("../login.jsp");
+        Admin admin = (Admin)request.getSession().getAttribute("Admin");
+  		if(user == null && admin == null)	response.sendRedirect("../login.jsp");
   	%>
     <div class="alert alert-info">当前位置
         <b class="tip"></b>逛逛社区

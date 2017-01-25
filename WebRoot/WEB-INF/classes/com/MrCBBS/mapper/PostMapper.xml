@@ -3,11 +3,17 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.MrCBBS.mapper.PostMapper">
-	
+
+	<insert id="insertPost" parameterType="com.MrCBBS.entities.Post" useGeneratedKeys="true" keyProperty="PID">
+		insert into post(PKnob,PTitle,PTopic,PContent,UName,PDate,PCloseDate,Status,likeCount,hateCount)
+		values(#{PKnob},#{PTitle},#{PTopic},#{PContent},#{UName},#{PDate},#{PCloseDate},#{Status},#{likeCount},#{hateCount})
+	</insert>
+
+	<!--
 	<insert id="insertPost" parameterType="com.MrCBBS.entities.Post" useGeneratedKeys="true" keyProperty="PID">
 		insert into post(PKnob,PTitle,PTopic,PContent,UName,PDate,PCloseDate,Status)
 		values(#{PKnob},#{PTitle},#{PTopic},#{PContent},#{UName},#{PDate},#{PCloseDate},#{Status})
-	</insert>
+	</insert> -->
 	
 	<!-- 通过账号获取 -->
 	<select id="selectPostByUName" parameterType="string" resultMap="posts">
@@ -25,6 +31,8 @@
 		<result property="PDate" column="PDate"/>
 		<result property="PCloseDate" column="PCloseDate"/>
 		<result property="Status" column="Status"/>
+		<result property="likeCount" column="likeCount"/>
+		<result property="hateCount" column="hateCount"/>
 	</resultMap>
 	
 	<select id="selectPostByPID" parameterType="Integer" resultMap="posts">
@@ -36,5 +44,11 @@
 		select * from post
 		where PKnob=#{PKnob}
 	</select>
+	<!--PKnob=#{PKnob},PTitle=#{PTitle},PTopic=#{PTopic},PContent=#{PContent},UName=#{UName},PDate=#{PDate},PCloseDate=#{PCloseDate},Status=#{Status},-->
+	<update id="update" parameterType="com.MrCBBS.entities.Post" >
+		update  post
+		set 	likeCount=#{likeCount},hateCount=#{hateCount}
+		where PID=#{PID}
+	</update>
 	
 </mapper>

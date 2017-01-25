@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.MrCBBS.mapper.UserPersonalMapper">
 
-  <select id="selectUPByUID" parameterType="string" resultType="com.MrCBBS.entities.UserPersonal">
+    <select id="selectUPByUID" parameterType="string" resultType="com.MrCBBS.entities.UserPersonal">
     select * from userpersonal where UID = #{UID}
   </select>
-  
-  <!-- 只有在注册时会使用 -->
-  <insert id="insertUP" parameterType="com.MrCBBS.entities.UserPersonal">
+
+    <!-- 只有在注册时会使用 -->
+    <insert id="insertUP" parameterType="com.MrCBBS.entities.UserPersonal">
   	insert into userpersonal (UID,URegistDate,ULRestrictDate,URepTimes,UScore,URank,UPubNum,UComNum,UGoodNum,UBadNum)
-  	values(#{uid},#{uRegistDate},#{uLRestrictDate},#{uRepTimes},#{uScore},#{uRank},#{uPubNum},#{uComNum},#{uGoodNum},#{uBadNum}) 
+  	values(#{uid},#{uRegistDate},#{uLRestrictDate},#{uRepTimes},#{uScore},#{uRank},#{uPubNum},#{uComNum},#{uGoodNum},#{uBadNum})
   </insert>
-  
+    <update id="update" parameterType="com.MrCBBS.entities.UserPersonal">
+        update  userpersonal set
+        URegistDate=#{uRegistDate},
+        <if test="uLRestrictDate != null">
+            ULRestrictDate=#{uLRestrictDate},
+        </if>
+        URepTimes=#{uRepTimes},
+        UScore=#{uScore},
+        URank=#{uRank},
+        UPubNum=#{uPubNum},
+        UComNum=#{uComNum},
+        UGoodNum=#{uGoodNum},
+        UBadNum=#{uBadNum}
+        WHERE UID=#{uid}
+    </update>
 </mapper>

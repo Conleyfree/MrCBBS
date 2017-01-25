@@ -3,6 +3,7 @@ package com.MrCBBS.action;
 import javax.servlet.http.HttpSession;
 
 import com.MrCBBS.Server.LoginService;
+import com.MrCBBS.entities.Admin;
 import com.MrCBBS.entities.User;
 
 @SuppressWarnings("serial")
@@ -13,11 +14,6 @@ public class LoginAction extends CommonAction{
 	private String rank;
 
 	private LoginService loginService;
-	
-	public LoginService getLoginService()
-	{
-		return loginService;
-	}
 
 	public void setLoginService(LoginService loginService)
 	{
@@ -52,10 +48,18 @@ public class LoginAction extends CommonAction{
 		rank = request.getParameter("rank");
 
 		if(Integer.parseInt(rank) == 1){	//管理员用户登录
-
+			Admin admin = loginService.Alogin(username, password);
+			if(admin == null){
+				String EM = "输入的用户名或密码有误";
+				request.setAttribute("SM", EM);
+				return ERROR;
+			}
+			HttpSession httpSession = request.getSession();
+			httpSession.setAttribute("Admin", admin);
+			request.setAttribute("Admin", admin);
 			return "1";
 		}else{
-			User user = loginService.login(username, password);
+			User user = loginService.Ulogin(username, password);
 			if(user == null){
 				String EM = "输入的用户名或密码有误";
 				request.setAttribute("SM", EM);

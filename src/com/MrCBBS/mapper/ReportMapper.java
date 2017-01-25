@@ -3,15 +3,15 @@ package com.MrCBBS.mapper;
 import com.MrCBBS.entities.Report;
 
 public interface ReportMapper extends MyBatisSuperMapper {
-    int deleteByPrimaryKey(Integer rid);
+    public int deleteByPrimaryKey(Integer rid);
 
-    int insert(Report record);
+    public int insert(Report record);
 
-    int insertSelective(Report record);
+    public int insertSelective(Report record);
 
-    Report selectByPrimaryKey(Integer rid);
+    public Report selectByPrimaryKey(Integer rid);
 
-    int updateByPrimaryKeySelective(Report record);
+    public int updateByPrimaryKeySelective(Report record);
 
-    int updateByPrimaryKey(Report record);
+    public int updateByPrimaryKey(Report record);
 }

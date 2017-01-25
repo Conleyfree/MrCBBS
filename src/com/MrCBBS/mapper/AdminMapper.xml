@@ -77,5 +77,11 @@
   </update>
 
   <!-- 2017.1.23 czc-->
-
+  <select id="selectAdminByAName" parameterType="string" resultMap="BaseResultMap">
+    SELECT *
+    FROM admin
+    WHERE AName=#{AName}
+  </select>
+  
+  
 </mapper>

@@ -40,7 +40,15 @@
         	document.getElementById("comment").value = $('#htmlbox_icon_set_green').val();
         	$("form").submit();
         }
-
+		function modifyPost(){
+			alert("修改成功");
+		}
+		function deletePost(){
+			alert("删除成功");
+		}
+		function callPostEditor(){
+			alert("给作者发送信息");
+		}
     </script>
   </head>
   
@@ -51,7 +59,8 @@
 	    	HttpSession httpsession = request.getSession();
 	    	httpsession.setAttribute("Post",post);
 	  		User user = (User)request.getSession().getAttribute("User");
-	  		if(user == null)	response.sendRedirect("../login.jsp");
+			Admin admin = (Admin)request.getSession().getAttribute("Admin");
+	  		if(user == null && admin == null)	response.sendRedirect("../login.jsp");
 	  	%>
 	    <div class="alert alert-info">当前位置<b class="tip"></b>我的帖子<b class="tip"></b>查看帖子</div>
 	  	<table class="tbform list">
@@ -87,10 +96,17 @@
         	<input class="btn" id="goodbutton" type="button" value="给个赞" onclick="onPostLike(<%=post.getPID() %>)"/>
         	<input class="btn" id="badbutton" type="button" value="踩一下" onclick="onPostHate(<%=post.getPID() %>)"/>
         	<%
-        	if( Integer.parseInt(user.getuAccount()) == post.getUName()){//当前用户是帖子作者       		
-        	%>	<input class="btn" id="goodbutton" type="button" value="修改" onclick=""/>
-            	<input class="btn" id="badbutton" type="button" value="删帖" onclick=""/><% 
-        	}
+				if(user != null){	//用户不是管理员
+					if( Integer.parseInt(user.getuAccount()) == post.getUName()){//当前用户是帖子作者
+					%>	<input class="btn" id="modifybutton" type="button" value="修改" onclick="modifyPost()"/>
+						<input class="btn" id="deletebutton" type="button" value="删帖" onclick="deletePost()"/>
+					<%
+					}
+				}else{	//管理员
+					%>  <input class="btn" id="callbutton" type="button" value="删帖" onclick="callPostEditor()"/>
+						<input class="btn" id="deletebutton" type="button" value="删帖" onclick="deletePost()"/>
+					<%
+				}
         	%>
         </div><br/>
         

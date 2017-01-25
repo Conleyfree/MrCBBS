@@ -58,6 +58,9 @@
     	<property name="userMapper" ref="userMapper"></property>
     	<property name="userPersonalMapper" ref="userPersonalMapper"></property>
     </bean>
+    <bean id="AdminDAO" class="com.MrCBBS.DAO.Impl.AdminDAOImpl">
+        <property name="adminMapper" ref="adminMapper"></property>
+    </bean>
     <bean id="PostDAO" class="com.MrCBBS.DAO.Impl.PostDAOImpl">
     	<property name="postMapper" ref="postMapper"></property>
     </bean>
@@ -73,7 +76,8 @@
     	<property name="userDAO" ref="UserDAO"></property>   
     </bean>
     <bean id="LoginService" class="com.MrCBBS.Server.Impl.LoginServiceImpl">
-    	<property name="userDAO" ref="UserDAO"></property> 
+    	<property name="userDAO" ref="UserDAO"></property>
+        <property name="adminDAO" ref="AdminDAO"></property>
     </bean>
     <bean id="PostService" class="com.MrCBBS.Server.Impl.PostServiceImpl">
     	<property name="postDAO" ref="PostDAO"></property>

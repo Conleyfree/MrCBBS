@@ -17,5 +17,5 @@ public interface PostMapper extends MyBatisSuperMapper
 	//通过PKnob获取
 	public List<Post> selectPostByPKnob(Integer PKnob);
 
-	void update(Post post);
+	public void update(Post post);
 }

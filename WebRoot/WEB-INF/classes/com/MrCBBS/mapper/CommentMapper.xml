@@ -13,6 +13,10 @@
 		select * from comment
 		where PID=#{PID}
 	</select>
+	<select id="selectByUAccount" parameterType="string" resultMap="comments">
+		select * from comment
+		where UName=#{UAccount}
+	</select>
 	<resultMap type="com.MrCBBS.entities.Comment" id="comments">
 		<id property="CID" column="CID"></id>
 		<result property="PID" column="PID"/>
@@ -21,6 +25,5 @@
 		<result property="CDate" column="CDate"/>
 		<result property="Status" column="Status"/>		
 	</resultMap>
-	
 
 </mapper>

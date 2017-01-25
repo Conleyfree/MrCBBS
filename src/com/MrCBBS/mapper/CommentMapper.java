@@ -10,5 +10,5 @@ public interface CommentMapper extends MyBatisSuperMapper
 	
 	public List<Comment> selectByPID(Integer PID);
 
-	List<Comment> selectByUAccount(int UAccount);
+	public List<Comment> selectByUAccount(int UAccount);
 }

@@ -15,4 +15,7 @@ public interface AdminMapper  extends MyBatisSuperMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    /* 2017.1.25 */
+    Admin selectAdminByAName(String AName);
 }

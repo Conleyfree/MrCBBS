@@ -14,7 +14,7 @@
         
 	    <!-- 登陆 -->
 		<action name="login" class="loginAction">
-			<result name="1"></result>
+			<result name="1">Page/index_admin.jsp</result>
 		    <result name="2">/index.jsp</result>
 		    <result name="error">/login.jsp</result>
 		</action>

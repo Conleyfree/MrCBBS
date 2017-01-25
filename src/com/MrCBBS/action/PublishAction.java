@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import com.MrCBBS.Server.CommentService;
 import com.MrCBBS.Server.PostService;
 import com.MrCBBS.Server.UserService;
+import com.MrCBBS.entities.Admin;
 import com.MrCBBS.entities.Comment;
 import com.MrCBBS.entities.Post;
 import com.MrCBBS.entities.User;
@@ -83,7 +84,10 @@ public class PublishAction extends CommonAction
 	public String getPo() throws Exception{
 		HttpSession httpSession = request.getSession();
 		User user = (User)httpSession.getAttribute("User");
-		if(user == null)	return ERROR;
+		if(user == null){
+			Admin admin = (Admin)httpSession.getAttribute("Admin");
+			if(admin == null) 	return ERROR;
+		}
 		String pid = request.getParameter("PID");
 		Integer PID = Integer.parseInt(pid);
 		Post post = postService.selectPostByPID(PID);
@@ -103,7 +107,10 @@ public class PublishAction extends CommonAction
 	public String showPoListByPKnob() throws Exception{
 		HttpSession httpSession = request.getSession();
 		User user = (User)httpSession.getAttribute("User");
-		if(user == null)	return ERROR;
+		if(user == null){
+			Admin admin = (Admin)httpSession.getAttribute("Admin");
+			if(admin == null) 	return ERROR;
+		}
 		String pknob = request.getParameter("Pknob");
 		Integer PKnob = Integer.parseInt(pknob);
 		

@@ -3,15 +3,15 @@ package com.MrCBBS.mapper;
 import com.MrCBBS.entities.Message;
 
 public interface MessageMapper  extends MyBatisSuperMapper {
-    int deleteByPrimaryKey(Integer mid);
+    public int deleteByPrimaryKey(Integer mid);
 
-    int insert(Message record);
+    public int insert(Message record);
 
-    int insertSelective(Message record);
+    public int insertSelective(Message record);
 
-    Message selectByPrimaryKey(Integer mid);
+    public Message selectByPrimaryKey(Integer mid);
 
-    int updateByPrimaryKeySelective(Message record);
+    public int updateByPrimaryKeySelective(Message record);
 
-    int updateByPrimaryKey(Message record);
+    public int updateByPrimaryKey(Message record);
 }
