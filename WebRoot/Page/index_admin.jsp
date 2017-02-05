@@ -168,6 +168,23 @@
                 </div>
                 <!-- 模态框 end 2017.1.20 -->
 
+                <!-- 子页面里管理员发送消息模态框 2017.1.25 -->
+                <div id="messageModal" class="modal hide fade in" style="display:none">
+                    <div class="modal-header" >
+                        <a class="close" data-dismiss="modal">×</a>
+                        <h3>发送消息给本贴贴主</h3>
+                    </div>
+                    <div class="modal-body" >
+                        <h4 style="text-align:center;color:red" id="errorMessage2"></h4><br/>
+                        <h4 style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;请输入消息内容：<br/><br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<textarea id="messageContent" style="resize:none;width:500px;height:100px" ></textarea></h4><br/>
+                    </div>
+                    <div class="modal-footer" >
+                        <a href="#" class="btn btn-success" onclick="Conframe.window.callPostEditor()">发送</a>
+                        <a href="#" class="btn bt" onclick="Conframe.window.reSet()">重置</a>
+                    </div>
+                </div>
+
                 <div id="datepicker"></div>
             </div>
         </div>

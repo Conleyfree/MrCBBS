@@ -70,6 +70,9 @@
     <bean id="Appraise4postDAO" class="com.MrCBBS.DAO.Impl.Appraise4postDAOImpl">
         <property name="appraise4postMapper" ref="appraise4postMapper"></property>
     </bean>
+    <bean id="MessageDAO" class="com.MrCBBS.DAO.Impl.MessageDAOImpl">
+        <property name="messageMapper" ref="messageMapper"></property>
+    </bean>
 
     <!-- 部署业务逻辑组件 -->
     <bean id="RegistService" class="com.MrCBBS.Server.Impl.RegistServiceImpl">
@@ -89,6 +92,9 @@
     </bean>
     <bean id="UserService" class="com.MrCBBS.Server.Impl.UserServiceImpl">
         <property name="userDAO" ref="UserDAO"></property>
+    </bean>
+    <bean id="AdminService" class="com.MrCBBS.Server.Impl.AdminServiceImpl">
+        <property name="messageDAO" ref="MessageDAO"></property>
     </bean>
     
     <!-- 让Spring管理的action实例 -->
@@ -133,5 +139,8 @@
     </bean>
     <bean id="ModifyPasswordAction" class="com.MrCBBS.action.ModifyPasswordAction" scope="prototype" >
         <property name="userService" ref="UserService"></property>
+    </bean>
+    <bean id="SendMessageAction" class="com.MrCBBS.action.SendMessageAction" scope="prototype" >
+        <property name="adminService" ref="AdminService"></property>
     </bean>
 </beans>

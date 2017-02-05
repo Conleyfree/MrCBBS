@@ -1,5 +1,6 @@
 package com.MrCBBS.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message {
@@ -7,89 +8,63 @@ public class Message {
 
     private String senderid;
 
-    private String sendertype;
+    private char sendertype;
 
     private String content;
 
     private String receiverid;
 
-    private Long rptobjectid;
+    private String rptobjectid;
 
-    private String rptobjecttype;
+    private char rptobjecttype;
 
-    private String isread;
+    private char isread;
 
-    private Date senddate;
+    private String senddate;
+
+    public Message(String senderid, char sendertype, String content, String receiverid, String rptobjectid,char rptobjecttype){
+        this.senderid = senderid;
+        this.sendertype = sendertype;
+        this.content = content;
+        this.receiverid = receiverid;
+        this.rptobjectid = rptobjectid;
+        this.rptobjecttype = rptobjecttype;
+        this.isread = '0';
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        this.senddate = df.format(new Date());
+        System.out.println(senddate);                // new Date()为获取当前系统时间
+    }
 
     public Integer getMid() {
         return mid;
-    }
-
-    public void setMid(Integer mid) {
-        this.mid = mid;
     }
 
     public String getSenderid() {
         return senderid;
     }
 
-    public void setSenderid(String senderid) {
-        this.senderid = senderid == null ? null : senderid.trim();
-    }
-
-    public String getSendertype() {
+    public char getSendertype() {
         return sendertype;
-    }
-
-    public void setSendertype(String sendertype) {
-        this.sendertype = sendertype == null ? null : sendertype.trim();
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
     public String getReceiverid() {
         return receiverid;
     }
 
-    public void setReceiverid(String receiverid) {
-        this.receiverid = receiverid == null ? null : receiverid.trim();
-    }
-
-    public Long getRptobjectid() {
-        return rptobjectid;
-    }
-
-    public void setRptobjectid(Long rptobjectid) {
-        this.rptobjectid = rptobjectid;
-    }
-
-    public String getRptobjecttype() {
+    public char getRptobjecttype() {
         return rptobjecttype;
     }
 
-    public void setRptobjecttype(String rptobjecttype) {
-        this.rptobjecttype = rptobjecttype == null ? null : rptobjecttype.trim();
-    }
-
-    public String getIsread() {
+    public char getIsread() {
         return isread;
     }
 
-    public void setIsread(String isread) {
-        this.isread = isread == null ? null : isread.trim();
-    }
-
-    public Date getSenddate() {
+    public String getSenddate() {
         return senddate;
     }
 
-    public void setSenddate(Date senddate) {
-        this.senddate = senddate;
-    }
 }

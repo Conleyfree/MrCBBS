@@ -89,6 +89,12 @@
 				<param name="includeProperties">message, statusCode</param>
 			</result>
 		</action>
+		<!-- 管理员发送信息给贴子主人 -->
+		<action name="sendMessageAction" class="SendMessageAction" >
+			<result name="success" type="json">
+				<param name="includeProperties">message, statusCode</param>
+			</result>
+		</action>
 
 	</package>
 </struts>

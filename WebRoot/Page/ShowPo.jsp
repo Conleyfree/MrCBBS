@@ -2,6 +2,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
+	<%	Post post = (Post)request.getAttribute("Post");
+		List<Comment> comments = (List<Comment>)request.getAttribute("Comments");
+		List<String> commentEditors = (List<String>)request.getAttribute("CommentEditors");
+		HttpSession httpsession = request.getSession();
+		httpsession.setAttribute("Post",post);
+		User user = (User)request.getSession().getAttribute("User");
+		Admin admin = (Admin)request.getSession().getAttribute("Admin");
+		if(user == null && admin == null)	response.sendRedirect("../login.jsp");
+	%>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -10,11 +19,13 @@
 	
 	<link rel="stylesheet" type="text/css" href="/MrCBBS/Styles/admin-all.css" />
     <link rel="stylesheet" type="text/css" href="/MrCBBS/Styles/base.css"/>
-    <script type="text/javascript" src="/MrCBBS/Scripts/jquery-1.7.2.js"></script>
-    <script type="text/javascript" src="/MrCBBS/Scripts/jquery-ui-1.8.22.custom.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/MrCBBS/Styles/ui-lightness/jquery-ui-1.8.22.custom.css" />
     <link rel="stylesheet" type="text/css" href="/MrCBBS/Styles/formui.css"/>
-    <script type="text/javascript" src="/MrCBBS/Scripts/tb.js"></script>
+
+	<script type="text/javascript" src="Scripts/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="Scripts/jquery-ui-1.8.22.custom.min.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="Scripts/tb.js"></script>
     <script type="text/javascript">
         $(function () {
             $(".datepicker").datepicker();
@@ -47,21 +58,43 @@
 			alert("删除成功");
 		}
 		function callPostEditor(){
-			alert("给作者发送信息");
+			var content = window.parent.$('#messageContent').val();
+			if(content != null && content.trim() != ""){
+				parent.document.getElementById('errorMessage2').innerHTML = "";	// 清空错误信息
+				window.parent.$('#messageModal').modal('hide');
+				var adminName = '<%=admin==null ? "" :admin.getAname() %>';
+				var uid = '<%=post.getUName() %>';
+				var pid = '<%=post.getPID() %>';
+				/* 发往后台 */
+				$.ajax({
+					url:'sendMessageAction',
+					type:'post',
+					async:false,//使代码按顺序执行
+					data:{adminName:adminName,uid:uid,pid:pid,content:content},
+					dataType:'json',
+					success:function(data){
+						var message = data.message;
+						alert(message);
+						parent.document.getElementById("errorMessage2").innerHTML = message;
+					}
+				});
+			}else{
+				parent.document.getElementById('errorMessage2').innerHTML = "发送给对方的消息不能为空！！";
+			}
+		}
+
+		function showMyModal() {
+			window.parent.$('#messageModal').modal('show');
+		}
+		/* 	 	模态框重置按钮	     */
+		function reSet() {
+			parent.document.getElementById('messageContent').value = "";
+			parent.document.getElementById('errorMessage2').innerHTML = "";
 		}
     </script>
   </head>
   
   <body>
-	    <%	Post post = (Post)request.getAttribute("Post");
-	    	List<Comment> comments = (List<Comment>)request.getAttribute("Comments");
-			List<String> commentEditors = (List<String>)request.getAttribute("CommentEditors");
-	    	HttpSession httpsession = request.getSession();
-	    	httpsession.setAttribute("Post",post);
-	  		User user = (User)request.getSession().getAttribute("User");
-			Admin admin = (Admin)request.getSession().getAttribute("Admin");
-	  		if(user == null && admin == null)	response.sendRedirect("../login.jsp");
-	  	%>
 	    <div class="alert alert-info">当前位置<b class="tip"></b>我的帖子<b class="tip"></b>查看帖子</div>
 	  	<table class="tbform list">
 	        <thead>
@@ -93,21 +126,37 @@
         <div class="alert alert-info">
         	<font size="4"><%=post.getPContent() %></font><br/>
 
-        	<input class="btn" id="goodbutton" type="button" value="给个赞" onclick="onPostLike(<%=post.getPID() %>)"/>
+        	<input class="btn btn-primary btn-lg" id="goodbutton" type="button" value="给个赞" onclick="onPostLike(<%=post.getPID() %>)"/>
         	<input class="btn" id="badbutton" type="button" value="踩一下" onclick="onPostHate(<%=post.getPID() %>)"/>
         	<%
 				if(user != null){	//用户不是管理员
 					if( Integer.parseInt(user.getuAccount()) == post.getUName()){//当前用户是帖子作者
 					%>	<input class="btn" id="modifybutton" type="button" value="修改" onclick="modifyPost()"/>
-						<input class="btn" id="deletebutton" type="button" value="删帖" onclick="deletePost()"/>
+						<input class="btn" id="deletebutton" type="button" value="删贴" onclick="deletePost()"/>
 					<%
 					}
 				}else{	//管理员
-					%>  <input class="btn" id="callbutton" type="button" value="删帖" onclick="callPostEditor()"/>
-						<input class="btn" id="deletebutton" type="button" value="删帖" onclick="deletePost()"/>
+					%>  <a  class="btn btn-primary btn-lg" data-toggle="modal" onclick="showMyModal()">告知贴主</a>
+						<input class="btn" id="deletebutton" type="button" value="删贴" onclick="deletePost()"/>
+						<!-- 管理员发送消息模态框 2017.1.25 -->
+						<div id="messageModal" class="modal fade" role="dialog" style="display:none">
+							<div class="modal-header" >
+								<a class="close" data-dismiss="modal">×</a>
+								<h3>发送消息给本贴贴主</h3>
+							</div>
+							<div class="modal-body" >
+								<h4 style="text-align:center;color:red" id="errorMessage"></h4><br/>
+								<h4 style="text-align:center">请输入消息内容：<input id="messageContent" type="text" style="width:40%;height:15%" ></h4><br/>
+							</div>
+							<div class="modal-footer" >
+								<a href="#" class="btn btn-success" onclick="callPostEditor()">发送</a>
+								<a href="#" class="btn bt" onclick="reSet()">重置</a>
+							</div>
+						</div>
 					<%
 				}
         	%>
+
         </div><br/>
         
         <!-- 评论区 -->
@@ -150,5 +199,6 @@
         <%        	
          }
         %>
+
   </body>
 </html>

@@ -10,7 +10,7 @@
     <result column="RptObjectID" jdbcType="BIGINT" property="rptobjectid" />
     <result column="RptObjectType" jdbcType="VARCHAR" property="rptobjecttype" />
     <result column="IsRead" jdbcType="VARCHAR" property="isread" />
-    <result column="SendDate" jdbcType="TIME" property="senddate" />
+    <result column="SendDate" jdbcType="VARCHAR" property="senddate" />
   </resultMap>
   <sql id="Base_Column_List">
     MID, SenderID, SenderType, Content, ReceiverID, RptObjectID, RptObjectType, IsRead, 
@@ -26,14 +26,14 @@
     delete from message
     where MID = #{mid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.MrCBBS.entities.Message">
-    insert into message (MID, SenderID, SenderType, 
+  <insert id="insert" parameterType="com.MrCBBS.entities.Message" useGeneratedKeys="true" keyProperty="MID" >
+    insert into message (SenderID, SenderType,
       Content, ReceiverID, RptObjectID, 
       RptObjectType, IsRead, SendDate
       )
-    values (#{mid,jdbcType=INTEGER}, #{senderid,jdbcType=CHAR}, #{sendertype,jdbcType=VARCHAR}, 
+    values ( #{senderid,jdbcType=CHAR}, #{sendertype,jdbcType=VARCHAR},
       #{content,jdbcType=VARCHAR}, #{receiverid,jdbcType=CHAR}, #{rptobjectid,jdbcType=BIGINT}, 
-      #{rptobjecttype,jdbcType=VARCHAR}, #{isread,jdbcType=VARCHAR}, #{senddate,jdbcType=TIME}
+      #{rptobjecttype,jdbcType=VARCHAR}, #{isread,jdbcType=VARCHAR}, #{senddate,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.MrCBBS.entities.Message">
