@@ -81,7 +81,17 @@
 			<result name="success">/Page/ListCommentsToMe.jsp</result>
 			<result name="error">/login.jsp</result>
 		</action>
-
+		
+		<!-- 获取消息 -->
+		<action name="getUnreadedMsgAction" class="GetMsgAction" method="getUnreadedMsg">
+			<result name="success">/Page/ListUnreadedMessage.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		<action name="getReadedMsgAction" class="GetMsgAction" method="getReadedMsg">
+			<result name="success">/Page/ListUnreadedMessage.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		
 		<!-- ajax -->
 		<!-- 修改密码 -->
 		<action name="modifyPasswordAction" class="ModifyPasswordAction" >

@@ -139,4 +139,10 @@
       SendDate = #{senddate,jdbcType=TIME}
     where MID = #{mid,jdbcType=INTEGER}
   </update>
+
+  <!-- 获取消息集 -->
+  <select id="selectMsgByUAccount_isRead" resultMap="messages">
+      select * from message where ReceiverID=#{0} and isRead=#{1}
+  </select>
+  <resultMap id="messages" type="com.MrCBBS.entities.Message"></resultMap>
 </mapper>

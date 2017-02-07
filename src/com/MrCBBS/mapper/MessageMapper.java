@@ -2,16 +2,20 @@ package com.MrCBBS.mapper;
 
 import com.MrCBBS.entities.Message;
 
+import java.util.List;
+
 public interface MessageMapper  extends MyBatisSuperMapper {
-    public int deleteByPrimaryKey(Integer mid);
+    int deleteByPrimaryKey(Integer mid);
 
-    public int insert(Message record);
+    int insert(Message record);
 
-    public int insertSelective(Message record);
+    int insertSelective(Message record);
 
-    public Message selectByPrimaryKey(Integer mid);
+    Message selectByPrimaryKey(Integer mid);
 
-    public int updateByPrimaryKeySelective(Message record);
+    int updateByPrimaryKeySelective(Message record);
 
-    public int updateByPrimaryKey(Message record);
+    int updateByPrimaryKey(Message record);
+
+    List<Message> selectMsgByUAccount_isRead(String UAccount, char isRead);
 }

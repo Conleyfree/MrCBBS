@@ -94,8 +94,8 @@
                     </li>
                     <li><a href="#">我的消息<i class="tip-up"></i></a>
                         <ul class="kidc">
-                            <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">未读信息</a></li>
-                            <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">已读信息</a></li>
+                            <li><b class="tip"></b><a target="Conframe" href="getUnreadedMsgAction.action?UName=<%=user.getuAccount()%>">未读信息</a></li>
+                            <li><b class="tip"></b><a target="Conframe" href="getReadedMsgAction.action?UName=<%=user.getuAccount()%>">已读信息</a></li>
                         </ul>
                     </li>
                     <li><a href="#">逛逛社区<i class="tip-up"></i></a>
@@ -147,8 +147,8 @@
                 <div>
                     <a class="one">我的消息</a>
                     <ul class="kid">
-                    	<li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">未读信息</a></li>
-                        <li><b class="tip"></b><a target="Conframe" href="Page/UnFinishPage.jsp">已读信息</a></li>
+                    	<li><b class="tip"></b><a target="Conframe" href="getUnreadedMsgAction.action?UName=<%=user.getuAccount()%>">未读信息</a></li>
+                        <li><b class="tip"></b><a target="Conframe" href="getReadedMsgAction.action?UName=<%=user.getuAccount()%>">已读信息</a></li>
                     </ul>
                 </div>
                 <div>

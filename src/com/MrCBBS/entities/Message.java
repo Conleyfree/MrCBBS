@@ -22,6 +22,10 @@ public class Message {
 
     private String senddate;
 
+    public Message(){
+        /* 提供mybatis使用 */
+    }
+
     public Message(String senderid, char sendertype, String content, String receiverid, String rptobjectid,char rptobjecttype){
         this.senderid = senderid;
         this.sendertype = sendertype;
@@ -67,4 +71,39 @@ public class Message {
         return senddate;
     }
 
+    public void setMid(Integer mid) {
+        this.mid = mid;
+    }
+
+    public void setSenderid(String senderid) {
+        this.senderid = senderid;
+    }
+
+    public void setSendertype(char sendertype) {
+        this.sendertype = sendertype;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setReceiverid(String receiverid) {
+        this.receiverid = receiverid;
+    }
+
+    public void setRptobjecttype(char rptobjecttype) {
+        this.rptobjecttype = rptobjecttype;
+    }
+
+    public void setIsread(char isread) {
+        this.isread = isread;
+    }
+
+    public void setRptobjectid(String rptobjectid) {
+        this.rptobjectid = rptobjectid;
+    }
+
+    public void setSenddate(String senddate) {
+        this.senddate = senddate;
+    }
 }

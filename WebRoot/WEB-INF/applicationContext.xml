@@ -92,6 +92,7 @@
     </bean>
     <bean id="UserService" class="com.MrCBBS.Server.Impl.UserServiceImpl">
         <property name="userDAO" ref="UserDAO"></property>
+        <property name="messageDAO" ref="MessageDAO"></property>
     </bean>
     <bean id="AdminService" class="com.MrCBBS.Server.Impl.AdminServiceImpl">
         <property name="messageDAO" ref="MessageDAO"></property>
@@ -142,5 +143,8 @@
     </bean>
     <bean id="SendMessageAction" class="com.MrCBBS.action.SendMessageAction" scope="prototype" >
         <property name="adminService" ref="AdminService"></property>
+    </bean>
+    <bean id="GetMsgAction" class="com.MrCBBS.action.getMsgAction" scope="prototype">
+        <property name="userService" ref="UserService"></property>
     </bean>
 </beans>

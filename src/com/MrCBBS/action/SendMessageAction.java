@@ -45,10 +45,6 @@ public class SendMessageAction extends CommonAction {
     }
 
     public String execute() throws Exception {
-        System.out.println("发送者：" + adminName);
-        System.out.println("贴子主人id：" + uid);
-        System.out.println("贴子id：" + pid);
-        System.out.println("内容：" + content);
         if(adminName.equals("")){
             statusCode = "401";
             message = "未授权访问！";
