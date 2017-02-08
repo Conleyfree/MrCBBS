@@ -145,4 +145,5 @@
       select * from message where ReceiverID=#{0} and isRead=#{1}
   </select>
   <resultMap id="messages" type="com.MrCBBS.entities.Message"></resultMap>
+
 </mapper>

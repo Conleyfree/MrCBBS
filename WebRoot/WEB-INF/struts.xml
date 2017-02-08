@@ -88,7 +88,7 @@
 			<result name="error">/login.jsp</result>
 		</action>
 		<action name="getReadedMsgAction" class="GetMsgAction" method="getReadedMsg">
-			<result name="success">/Page/ListUnreadedMessage.jsp</result>
+			<result name="success">/Page/ListReadedMessage.jsp</result>
 			<result name="error">/login.jsp</result>
 		</action>
 		
@@ -101,6 +101,12 @@
 		</action>
 		<!-- 管理员发送信息给贴子主人 -->
 		<action name="sendMessageAction" class="SendMessageAction" >
+			<result name="success" type="json">
+				<param name="includeProperties">message, statusCode</param>
+			</result>
+		</action>
+		<!-- 标记消息为已读 -->
+		<action name="markMsgAction" class="MarkMsgAction">
 			<result name="success" type="json">
 				<param name="includeProperties">message, statusCode</param>
 			</result>

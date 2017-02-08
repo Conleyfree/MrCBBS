@@ -17,4 +17,7 @@ public interface MessageDAO {
 
     /* 获取已读消息 */
     List<Message> getReadedMsg(String uAccount);
+
+    /* 标记消息已读 */
+    Boolean markMsg(String mid);
 }

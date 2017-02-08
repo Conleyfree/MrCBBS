@@ -44,4 +44,9 @@ public class UserServiceImpl implements UserService{
     public List<Message> getReadedMsg(String uAccount) {
         return messageDAO.getReadedMsg(uAccount);
     }
+
+    @Override
+    public Boolean markMsg(String mid) {
+        return messageDAO.markMsg(mid);
+    }
 }

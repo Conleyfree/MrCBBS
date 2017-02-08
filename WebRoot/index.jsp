@@ -195,6 +195,26 @@
                 </div>
                 <!-- 模态框 end 2017.1.20 -->
 
+                <!-- 查看消息内容模态框 2017.2.8 -->
+                <div id="msgContentModal" class="modal hide fade in" style="display:none">
+                    <div class="modal-header" >
+                        <a class="close" data-dismiss="modal">×</a>
+                        <h3 id="sender"></h3>
+                    </div>
+                    <div class="modal-body" >
+                        <h4 id="time" style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;</h4><br/>
+                        <p id="content" style="text-align:left;font-size:16px;">&nbsp;&nbsp;&nbsp;&nbsp;</p><br/>
+                        <a id="markReaded" style="color:red;font-size:15px;position:right" onclick="Conframe.window.markRead()">标记为已读</a><br/><br/>
+                        <a id="reply" style="color:#b3b3b3;font-size:20px;" onclick="Conframe.window.reply()">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/MrCBBS/img/myimg/reply.jpg" width="20" height="20" onclick=""/>&nbsp;&nbsp;回复</a>
+                    </div>
+
+                    <!--
+                    <div class="modal-footer" >
+                        <a href="#" class="btn btn-success" onclick="Conframe.window.callPostEditor()">发送</a>
+                        <a href="#" class="btn bt" onclick="Conframe.window.reSet()">重置</a>
+                    </div> -->
+                </div>
+
                 <div id="datepicker"></div>
             </div>
         </div>

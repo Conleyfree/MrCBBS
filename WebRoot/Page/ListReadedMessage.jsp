@@ -5,10 +5,14 @@
   Time: 12:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" import="java.util.*,com.MrCBBS.entities.Comment,com.MrCBBS.entities.User" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.MrCBBS.entities.User" pageEncoding="UTF-8"%>
 <%@ page import="com.MrCBBS.entities.Message" %>
 <html>
 <head>
+    <%	List<Message> messages = (List<Message>)request.getAttribute("messages");
+        User user = (User)request.getSession().getAttribute("User");
+        if(user == null)	response.sendRedirect("../login.jsp");
+    %>
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">
@@ -32,12 +36,26 @@
             })
         })
     </script>
+    <script type="text/javascript">
+        var p = -1;
+        function showMsgContent(num) {
+            /* 显示消息内容 */
+            window.parent.$('#msgContentModal').modal('show');
+            parent.document.getElementById('sender').innerHTML = "发信人：" + document.getElementById('sender'+num).value;
+            parent.document.getElementById('time').innerHTML = document.getElementById('date'+num).value;
+            parent.document.getElementById('content').innerHTML = document.getElementById('content'+num).value;
+            p = num;
+            if(document.getElementById('isRead'+num).value == 1)  {     //已读消息不提供“标记已读”按钮
+                parent.document.getElementById('markReaded').hide();
+            }
+        }
+
+        function reply(){
+            alert("read!");
+        }
+    </script>
 </head>
 <body>
-    <%	List<Message> messages = (List<Message>)request.getAttribute("messages");
-        User user = (User)request.getSession().getAttribute("User");
-        if(user == null)	response.sendRedirect("../login.jsp");
-    %>
     <div class="alert alert-info">当前位置<b class="tip"></b>消息中心</div>
     <table class="tbform list">
         <thead>
@@ -55,10 +73,19 @@
             for(int i = 0; i < messages.size(); i++){ %>
         <tr>
             <td>
-                <%= messages.get(i).getSenddate() %>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a><%= messages.get(i).getSenddate() %>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <img src="/MrCBBS/img/myimg/message_closed.png"  alt="点击查看消息内容" width="30" height="20" onclick="showMsgContent(<%=i%>)"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <a style="font-size: large;color: #0b9cd3" href="#">
                     来自 @<%=messages.get(i).getSenderid() %> 发来的消息
                 </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="mark" style="color:#b3b3b3">已读</a>
+                <input id="mid<%=i%>" type="hidden" value=<%=messages.get(i).getMid()%> />
+                <input id="sender<%=i%>" type="hidden" value=<%=messages.get(i).getSenderid()%> />
+                <input id="date<%=i%>" type="hidden" value=<%=messages.get(i).getSenddate()%> />
+                <input id="content<%=i%>" type="hidden" value=<%=messages.get(i).getContent()%> />
+                <input id="isRead<%=i%>" type="hidden" value=1 />
             </td>
         </tr>
         <%      }

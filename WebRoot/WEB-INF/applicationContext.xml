@@ -147,4 +147,7 @@
     <bean id="GetMsgAction" class="com.MrCBBS.action.getMsgAction" scope="prototype">
         <property name="userService" ref="UserService"></property>
     </bean>
+    <bean id="MarkMsgAction" class="com.MrCBBS.action.MarkMsgAction" scope="prototype">
+        <property name="userService" ref="UserService"></property>
+    </bean>
 </beans>

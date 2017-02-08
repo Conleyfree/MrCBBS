@@ -18,4 +18,5 @@ public interface MessageMapper  extends MyBatisSuperMapper {
     int updateByPrimaryKey(Message record);
 
     List<Message> selectMsgByUAccount_isRead(String UAccount, char isRead);
+
 }

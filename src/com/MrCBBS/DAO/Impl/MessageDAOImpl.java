@@ -31,4 +31,13 @@ public class MessageDAOImpl implements MessageDAO {
     public List<Message> getReadedMsg(String uAccount) {
         return messageMapper.selectMsgByUAccount_isRead(uAccount, '1');
     }
+
+    @Override
+    public Boolean markMsg(String mid) {
+        Message message = messageMapper.selectByPrimaryKey(Integer.parseInt(mid));
+        if(message == null)     return false;
+        message.setIsread('1');
+        messageMapper.updateByPrimaryKey(message);
+        return true;
+    }
 }
