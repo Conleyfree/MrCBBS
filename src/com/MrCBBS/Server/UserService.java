@@ -22,4 +22,7 @@ public interface UserService {
 
     /* 标记消息已读 */
     Boolean markMsg(String mid);
+
+    /* 回复信息给管理员 */
+    void sendMessage(String uaccount, String content, String aname, String pid);
 }

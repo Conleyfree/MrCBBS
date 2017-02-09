@@ -49,4 +49,10 @@ public class UserServiceImpl implements UserService{
     public Boolean markMsg(String mid) {
         return messageDAO.markMsg(mid);
     }
+
+    @Override
+    public void sendMessage(String uaccount, String content, String aname, String pid) {
+        Message message = new Message(uaccount, '1', content, aname, pid, '1');
+        messageDAO.insert(message);
+    }
 }

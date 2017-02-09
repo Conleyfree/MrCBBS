@@ -10,6 +10,7 @@
 <html>
 <head>
     <%	List<Message> messages = (List<Message>)request.getAttribute("messages");
+        List<String> postTitles = (List<String>)request.getAttribute("postTitle");
         User user = (User)request.getSession().getAttribute("User");
         if(user == null)	response.sendRedirect("../login.jsp");
     %>
@@ -38,20 +39,67 @@
     </script>
     <script type="text/javascript">
         var p = -1;
+        var message = "";
+        var statusCode = "";
+
+        var sender = "";
+        var date = "";
+        var content = "";
+
+        /* 显示消息内容 */
         function showMsgContent(num) {
-            /* 显示消息内容 */
             window.parent.$('#msgContentModal').modal('show');
             parent.document.getElementById('sender').innerHTML = "发信人：" + document.getElementById('sender'+num).value;
             parent.document.getElementById('time').innerHTML = document.getElementById('date'+num).value;
             parent.document.getElementById('content').innerHTML = document.getElementById('content'+num).value;
+            var from = parent.document.getElementById('from');
+            from.href = "getPoAction.action?PID=" + document.getElementById('pid'+num).value;
+            from.innerHTML = "@ 贴子：" + document.getElementById('pTitle'+num).value;
+            from.target = "Conframe";
             p = num;
             if(document.getElementById('isRead'+num).value == 1)  {     //已读消息不提供“标记已读”按钮
-                parent.document.getElementById('markReaded').hide();
+                parent.document.getElementById('markReaded').style.display = "none";
             }
         }
 
         function reply(){
-            alert("read!");
+            parent.document.getElementById('replyContent').style.display = "block";
+            parent.document.getElementById('msgInput').style.display = "block";
+        }
+
+        /* 提交回复 */
+        function submitReply() {
+            var replyContent = parent.document.getElementById('replyInput').value;
+            var list = content.split("//////");
+            var allContent = "";
+            if(list.length==2){
+                allContent = list[0] + "//" + date + "&nbsp;" + sender + "&nbsp;" + list[1];
+            }else{
+                allContent = date + "&nbsp;" + sender + "&nbsp;" + list[0];
+            }
+            allContent += "//////" + replyContent;
+            var uid = "";
+            uid = "<%=user.getUid() %>";
+            var pid = document.getElementById('pid'+p).value;
+            //alert(allContent);
+            $.ajax({
+                url:'replyAction',
+                type:'post',
+                async:false,//使代码按顺序执行
+                data:{sender:uid,receiver:sender,pid:pid,content:allContent},
+                dataType:'json',
+                success:function(data){
+                    message = data.message;
+                    statusCode = data.statusCode;
+                    alert(message);
+                }
+            });
+            window.parent.$('#msgContentModal').modal('hide');
+        }
+
+        /* 重置 */
+        function reset() {
+            parent.document.getElementById('replyInput').value = "";
         }
     </script>
 </head>
@@ -86,6 +134,8 @@
                 <input id="date<%=i%>" type="hidden" value=<%=messages.get(i).getSenddate()%> />
                 <input id="content<%=i%>" type="hidden" value=<%=messages.get(i).getContent()%> />
                 <input id="isRead<%=i%>" type="hidden" value=1 />
+                <input id="pid<%=i%>" type="hidden" value="<%=messages.get(i).getRptobjectid()%>">
+                <input id="pTitle<%=i%>" type="hidden" value="<%=postTitles.get(i).trim()%>">
             </td>
         </tr>
         <%      }

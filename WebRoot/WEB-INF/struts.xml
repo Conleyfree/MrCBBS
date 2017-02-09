@@ -111,6 +111,11 @@
 				<param name="includeProperties">message, statusCode</param>
 			</result>
 		</action>
-
+		<!-- 回复 -->
+		<action name="replyAction" class="ReplyAction">
+			<result name="success" type="json">
+				<param name="includeProperties">message, statusCode</param>
+			</result>
+		</action>
 	</package>
 </struts>

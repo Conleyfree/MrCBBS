@@ -202,17 +202,17 @@
                         <h3 id="sender"></h3>
                     </div>
                     <div class="modal-body" >
-                        <h4 id="time" style="text-align:left">&nbsp;&nbsp;&nbsp;&nbsp;</h4><br/>
-                        <p id="content" style="text-align:left;font-size:16px;">&nbsp;&nbsp;&nbsp;&nbsp;</p><br/>
+                        <h4 id="time" style="text-align:left"></h4><br/>
+                        <h4 style="text-align:left"><a id="from"></a></h4><br/>
+                        <p id="content" style="text-align:left;font-size:16px;"></p><br/>
                         <a id="markReaded" style="color:red;font-size:15px;position:right" onclick="Conframe.window.markRead()">标记为已读</a><br/><br/>
-                        <a id="reply" style="color:#b3b3b3;font-size:20px;" onclick="Conframe.window.reply()">&nbsp;&nbsp;&nbsp;&nbsp;<img src="/MrCBBS/img/myimg/reply.jpg" width="20" height="20" onclick=""/>&nbsp;&nbsp;回复</a>
+                        <a id="reply" style="color:#b3b3b3;font-size:18px;text-decoration:none" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="/MrCBBS/img/myimg/reply.jpg" width="20" height="20" onclick="Conframe.window.reply()"/>&nbsp;&nbsp;回复</a>
+                        <div id="replyContent" style="display: none" align="center"><br/><textarea id="replyInput" style="resize:none;width:500px;height:100px;"></textarea></div>
                     </div>
-
-                    <!--
-                    <div class="modal-footer" >
-                        <a href="#" class="btn btn-success" onclick="Conframe.window.callPostEditor()">发送</a>
-                        <a href="#" class="btn bt" onclick="Conframe.window.reSet()">重置</a>
-                    </div> -->
+                    <div class="modal-footer" style="display: none" id="msgInput">
+                        <a href="#" class="btn btn-success" onclick="Conframe.window.submitReply()">发送</a>
+                        <a href="#" class="btn bt" onclick="Conframe.window.reset()">重置</a>
+                    </div>
                 </div>
 
                 <div id="datepicker"></div>

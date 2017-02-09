@@ -106,4 +106,8 @@ public class Message {
     public void setSenddate(String senddate) {
         this.senddate = senddate;
     }
+
+    public String getRptobjectid() {
+        return rptobjectid;
+    }
 }
