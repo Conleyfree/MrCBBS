@@ -204,6 +204,7 @@
                     <div class="modal-body" >
                         <h4 id="time" style="text-align:left"></h4><br/>
                         <h4 style="text-align:left"><a id="from"></a></h4><br/>
+                        <p id="pre_content" style="text-align:left;font-size:16px;color:#bac9ec"></p>
                         <p id="content" style="text-align:left;font-size:16px;"></p><br/>
                         <a id="markReaded" style="color:red;font-size:15px;position:right" onclick="Conframe.window.markRead()">标记为已读</a><br/><br/>
                         <a id="reply" style="color:#b3b3b3;font-size:18px;text-decoration:none" >&nbsp;&nbsp;&nbsp;&nbsp;<img src="/MrCBBS/img/myimg/reply.jpg" width="20" height="20" onclick="Conframe.window.reply()"/>&nbsp;&nbsp;回复</a>

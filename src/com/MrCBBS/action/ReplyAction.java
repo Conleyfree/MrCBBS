@@ -1,6 +1,9 @@
 package com.MrCBBS.action;
 
 import com.MrCBBS.Server.UserService;
+import com.MrCBBS.entities.User;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by HandsomeMrChen on 2017/2/9.
@@ -45,11 +48,11 @@ public class ReplyAction extends CommonAction {
     }
 
     public String execute() throws Exception{
-        if(sender.equals("")){
+        if(sender==null || receiver == null || sender.equals("") || receiver.equals("")){
             statusCode = "401";
             message = "未授权访问！";
         }else {
-            userService.sendMessage(sender, content, receiver, pid);
+            userService.sendMessage(sender, '0', content, receiver, pid);   //参数2是发送人类型，普通用户为‘0’
             statusCode = "200";
             message = "信息已发送！";
         }

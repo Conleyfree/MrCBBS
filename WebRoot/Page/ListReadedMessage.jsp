@@ -7,12 +7,15 @@
 --%>
 <%@ page language="java" import="java.util.*,com.MrCBBS.entities.User" pageEncoding="UTF-8"%>
 <%@ page import="com.MrCBBS.entities.Message" %>
+<%@ page import="com.MrCBBS.entities.Admin" %>
 <html>
 <head>
     <%	List<Message> messages = (List<Message>)request.getAttribute("messages");
         List<String> postTitles = (List<String>)request.getAttribute("postTitle");
+        List<String> sendernames = (List<String>)request.getAttribute("sendername");
         User user = (User)request.getSession().getAttribute("User");
-        if(user == null)	response.sendRedirect("../login.jsp");
+        Admin admin = (Admin)request.getSession().getAttribute("Admin");
+        if(user == null && admin == null)	response.sendRedirect("../login.jsp");
     %>
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -49,9 +52,14 @@
         /* 显示消息内容 */
         function showMsgContent(num) {
             window.parent.$('#msgContentModal').modal('show');
-            parent.document.getElementById('sender').innerHTML = "发信人：" + document.getElementById('sender'+num).value;
-            parent.document.getElementById('time').innerHTML = document.getElementById('date'+num).value;
-            parent.document.getElementById('content').innerHTML = document.getElementById('content'+num).value;
+            sender = document.getElementById('sender'+num).value;
+            date = document.getElementById('date'+num).value;
+            content = document.getElementById('content'+num).value;
+            var list = content.split("//////");
+            parent.document.getElementById('sender').innerHTML = "发信人：" + document.getElementById('sendername'+num).value;
+            parent.document.getElementById('time').innerHTML = date;
+            parent.document.getElementById('pre_content').innerHTML = list.length==1?"": list[0];
+            parent.document.getElementById('content').innerHTML = list.length==1?list[0]: list[1];
             var from = parent.document.getElementById('from');
             from.href = "getPoAction.action?PID=" + document.getElementById('pid'+num).value;
             from.innerHTML = "@ 贴子：" + document.getElementById('pTitle'+num).value;
@@ -73,13 +81,12 @@
             var list = content.split("//////");
             var allContent = "";
             if(list.length==2){
-                allContent = list[0] + "//" + date + "&nbsp;" + sender + "&nbsp;" + list[1];
+                allContent = list[0] + "</br>" + date + "&nbsp;" + sender + ": " + list[1];
             }else{
-                allContent = date + "&nbsp;" + sender + "&nbsp;" + list[0];
+                allContent = date + "&nbsp;" + sender + ": " + list[0];
             }
             allContent += "//////" + replyContent;
-            var uid = "";
-            uid = "<%=user.getUid() %>";
+            var uid = document.getElementById('receiver'+p).value;
             var pid = document.getElementById('pid'+p).value;
             //alert(allContent);
             $.ajax({
@@ -125,17 +132,19 @@
                 <img src="/MrCBBS/img/myimg/message_closed.png"  alt="点击查看消息内容" width="30" height="20" onclick="showMsgContent(<%=i%>)"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a style="font-size: large;color: #0b9cd3" href="#">
-                    来自 @<%=messages.get(i).getSenderid() %> 发来的消息
+                    来自 @<%=sendernames.get(i) %> 发来的消息
                 </a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a id="mark" style="color:#b3b3b3">已读</a>
-                <input id="mid<%=i%>" type="hidden" value=<%=messages.get(i).getMid()%> />
-                <input id="sender<%=i%>" type="hidden" value=<%=messages.get(i).getSenderid()%> />
-                <input id="date<%=i%>" type="hidden" value=<%=messages.get(i).getSenddate()%> />
-                <input id="content<%=i%>" type="hidden" value=<%=messages.get(i).getContent()%> />
+                <input id="mid<%=i%>" type="hidden" value="<%=messages.get(i).getMid()%>" />
+                <input id="sender<%=i%>" type="hidden" value="<%=messages.get(i).getSenderid()%>" />
+                <input id="sendername<%=i%>" type="hidden" value="<%=sendernames.get(i) %>"/>
+                <input id="date<%=i%>" type="hidden" value="<%=messages.get(i).getSenddate()%>" />
+                <input id="content<%=i%>" type="hidden" value="<%=messages.get(i).getContent()%>" />
                 <input id="isRead<%=i%>" type="hidden" value=1 />
                 <input id="pid<%=i%>" type="hidden" value="<%=messages.get(i).getRptobjectid()%>">
                 <input id="pTitle<%=i%>" type="hidden" value="<%=postTitles.get(i).trim()%>">
+                <input id="receiver<%=i%>" type="hidden" value="<%=messages.get(i).getReceiverid()%>">
             </td>
         </tr>
         <%      }

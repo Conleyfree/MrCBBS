@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface UserService {
     User selectOneByUAccount(String uAccount);
+    User selectOneByUID(String UID);
 
     /* 修改密码 */
     String modifyUserPassWD(User user, String oldPassword, String newPassword);
@@ -23,6 +24,6 @@ public interface UserService {
     /* 标记消息已读 */
     Boolean markMsg(String mid);
 
-    /* 回复信息给管理员 */
-    void sendMessage(String uaccount, String content, String aname, String pid);
+    /* 发送信息 */
+    void sendMessage(String uaccount,  char sendertype, String content, String aname, String pid);
 }

@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User selectOneByUID(String UID) {
+        return userDAO.selectOneByUID(UID);
+    }
+
+    @Override
     public String modifyUserPassWD(User user, String oldPassword, String newPassword) {
         String password = userDAO.selectOneByUID(user.getUid()).getuPassWD();
         if(password.equals(oldPassword)){       //输入密码与原密码相同
@@ -51,8 +56,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void sendMessage(String uaccount, String content, String aname, String pid) {
-        Message message = new Message(uaccount, '1', content, aname, pid, '1');
+    public void sendMessage(String uaccount, char sendertype, String content, String aname, String pid) {
+        //sendertype:   0:用户；1：管理员；2：系统
+        Message message = new Message(uaccount, sendertype, content, aname, pid, '1');
         messageDAO.insert(message);
     }
 }
